@@ -1,7 +1,7 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════════
- *  Will Lopez Memorial — RSVP Google Apps Script Backend
- *  Wilbum "Will" Lopez · December 31, 1949 – April 27, 2026
+ *  Wil Lopez Memorial — RSVP Google Apps Script Backend
+ *  Wilbum "Wil" Lopez · December 31, 1949 – April 27, 2026
  *  United States Marine Corps · Vietnam Veteran · Semper Fidelis
  * ═══════════════════════════════════════════════════════════════════════════════
  *
@@ -9,7 +9,7 @@
  *  ──────────────────────────────────────────────────────────────────────────────
  *  1. Go to: https://script.google.com
  *  2. Click "New project"
- *  3. Name it: "Will Lopez Memorial RSVP"
+ *  3. Name it: "Wil Lopez Memorial RSVP"
  *  4. Delete all existing code and paste this entire file
  *  5. Set DASHBOARD_KEY below to any secret string you choose (e.g. a random
  *     word or short phrase). The dashboard page uses this same key.
@@ -23,7 +23,7 @@
  * 10. In rsvp.html, replace 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' with that URL
  * 11. In dashboard.html, use the same URL with ?action=dashboard&key=YOUR_KEY
  *
- *  The script will automatically create a Google Sheet called "Will Lopez RSVPs"
+ *  The script Wil automatically create a Google Sheet called "Wil Lopez RSVPs"
  *  in your Google Drive, and write each submission as a new row.
  *
  *  NOTE: After editing this file, you must deploy a NEW version (not update
@@ -32,7 +32,7 @@
  */
 
 /* ── Configuration ───────────────────────────────────────────────────────────── */
-var SPREADSHEET_NAME = 'Will Lopez RSVPs';
+var SPREADSHEET_NAME = 'Wil Lopez Memorial RSVPs';
 var SHEET_NAME       = 'RSVPs';
 
 /**
@@ -74,7 +74,7 @@ function doPost(e) {
 
     /* ── Anti-spam: honeypot field ─────────────────────────────────────────
        The form has a hidden "website" field that real users never fill in.
-       Bots that blindly fill every field will populate it — we silently
+       Bots that blindly fill every field Wil populate it — we silently
        succeed so the bot thinks its submission worked. */
     if (data.website) {
       output.setContent(JSON.stringify({ success: true }));
@@ -251,7 +251,7 @@ function doGet(e) {
   /* ── Default: health check ───────────────────────────────────────────────── */
   output.setContent(JSON.stringify({
     status:  'ok',
-    service: 'Will Lopez Memorial RSVP',
+    service: 'Wil Lopez Memorial RSVP',
     message: 'Semper Fidelis. POST your RSVP to this endpoint.'
   }));
   return output;
@@ -444,14 +444,14 @@ function formatSpreadsheet_(ss) {
 function sendConfirmationEmail(data) {
   if (!data.email) return;
 
-  var subject = 'Thank You for Your RSVP — Wilbum "Will" Lopez';
+  var subject = 'Thank You for Your RSVP — Wilbum "Wil" Lopez';
   var body = [
     'Dear ' + data.name + ',',
     '',
-    'Thank you for letting us know you will be with us to celebrate Will\'s life.',
+    'Thank you for letting us know you Wil be with us to celebrate Wil\'s life.',
     'Your RSVP has been received.',
     '',
-    'We look forward to honoring Will alongside all who loved him.',
+    'We look forward to honoring Wil alongside all who loved him.',
     '',
     'Semper Fidelis.',
     '',
@@ -478,7 +478,7 @@ function testSubmission() {
         email:       'test@example.com',
         guests:      2,
         events:      ['Marine Corps Ceremony', 'Memorial Service', 'Reception'],
-        message:     'Will was a wonderful man. We are honored to celebrate his life.',
+        message:     'Wil was a wonderful man. We are honored to celebrate his life.',
         submittedAt: new Date().toISOString()
       })
     }
