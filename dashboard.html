@@ -996,8 +996,8 @@
     /* ── Summary cards ────────────────────────────────────────────── */
     function renderCards(data) {
       const g      = Number(data.total_guests) || 0;
-      const dozens = Math.ceil(g / 12);
-      const donuts = dozens * 12;
+      const donuts = Math.ceil(g * 1.25);
+      const dozens = Math.ceil(donuts / 12);
       const cost   = dozens * 9;
 
       const cards = [
@@ -1024,7 +1024,7 @@
         {
           label: 'Donuts Needed',
           value: donuts,
-          sub:   dozens + '\u00a0dozen\u00a0\u00b7\u00a0~$' + cost,
+          sub:   donuts + ' donuts \u00b7 ' + dozens + ' dozen \u00b7 ~$' + cost,
         },
       ];
 

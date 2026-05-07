@@ -340,15 +340,35 @@ function appendRsvpRow(sheet, data) {
     events = '(none selected)';
   }
 
-  sheet.appendRow([
+// Upsert: check if this email already has an RSVP, update if so
+  var existingRow = -1;
+  if (sheet.getLastRow() > 1) {
+    var emails = sheet.getRange(2, 3, sheet.getLastRow() - 1, 1).getValues();
+    for (var i = 0; i < emails.length; i++) {
+      if (String(emails[i][0]).toLowerCase().trim() === String(data.email).toLowerCase().trim()) {
+        existingRow = i + 2; // +2 because data starts at row 2 (1-indexed, skip header)
+        break;
+      }
+    }
+  }
+
+  var rowData = [
     ptTime,                           /* Submitted (PT)       */
     data.name    || '',               /* Name                 */
     data.email   || '',               /* Email                */
     data.guests  || 1,                /* Guests               */
     events,                           /* Events Attending     */
     data.message || '',               /* Message              */
-    data.submittedAt || new Date().toISOString()  /* UTC ISO timestamp */
-  ]);
+    new Date().toISOString()          /* UTC timestamp        */
+  ];
+
+  if (existingRow > 0) {
+    // Update existing row
+    sheet.getRange(existingRow, 1, 1, 7).setValues([rowData]);
+  } else {
+    // New submission
+    sheet.appendRow(rowData);
+  }
 
   /* Auto-resize columns for readability */
   try {

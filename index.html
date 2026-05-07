@@ -1086,6 +1086,11 @@
         catch (_) { result = { success: res.ok }; }
 
         if (result.success) {
+          /* Save RSVP to localStorage so returning visitors can update */
+          try {
+            localStorage.setItem('wil_rsvp', JSON.stringify(data));
+            localStorage.setItem('wil_rsvp_ts', new Date().toISOString());
+          } catch(e) {}
           form.style.display = 'none';
           var successEl = document.getElementById('rsvpSuccess');
           successEl.style.display = 'block';
@@ -1106,6 +1111,44 @@
         errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     });
+    /* ═══════════════════════════════════════════════════════════════
+       RETURNING VISITOR: Pre-fill form if they already RSVP'd
+    ═══════════════════════════════════════════════════════════════ */
+    (function() {
+      try {
+        var saved = localStorage.getItem('wil_rsvp');
+        if (!saved) return;
+        var d = JSON.parse(saved);
+        var form = document.getElementById('rsvpForm');
+        if (!form) return;
+
+        /* Pre-fill fields */
+        if (d.name)   form.elements['name'].value   = d.name;
+        if (d.email)  form.elements['email'].value  = d.email;
+        if (d.guests) form.elements['guests'].value = d.guests;
+        if (d.message) form.elements['message'].value = d.message;
+
+        /* Check event boxes */
+        if (d.events) {
+          var evts = d.events.split(',').map(function(e) { return e.trim(); });
+          var boxes = form.querySelectorAll('input[name="events"]');
+          boxes.forEach(function(cb) {
+            if (evts.indexOf(cb.value) >= 0) cb.checked = true;
+          });
+        }
+
+        /* Change button and add note */
+        var btn = document.getElementById('rsvpBtnLabel');
+        if (btn) btn.textContent = 'Update RSVP';
+
+        var ts = localStorage.getItem('wil_rsvp_ts');
+        var note = document.createElement('p');
+        note.style.cssText = 'text-align:center; font-size:.9rem; color:var(--text-3); margin-bottom:18px; font-family:Cormorant Garamond,serif; font-style:italic;';
+        note.textContent = 'You previously submitted an RSVP' + (ts ? ' on ' + new Date(ts).toLocaleDateString() : '') + '. You can update your response below.';
+        form.insertBefore(note, form.firstChild);
+      } catch(e) {}
+    })();
+
   </script>
 </body>
 </html>
