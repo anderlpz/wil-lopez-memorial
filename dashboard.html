@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP Dashboard &mdash; Wilbum Lopez Celebration of Life</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── DESIGN TOKENS (exact match to rsvp.html) ───────────── */
+    :root {
+      --ink:          #1a1714;
+      --ink-alt:      #1f1c19;
+      --ink-deep:     #141210;
+      --text:         #f0ebe2;
+      --text-2:       #a09590;
+      --text-3:       #6a6360;
+      --gold:         #c4a97a;
+      --gold-lt:      #d9c09a;
+      --gold-20:      rgba(196,169,122,.20);
+      --gold-12:      rgba(196,169,122,.12);
+      --gold-08:      rgba(196,169,122,.08);
+      --gold-05:      rgba(196,169,122,.05);
+      --glass:        rgba(255,251,245,.04);
+      --glass-hover:  rgba(255,251,245,.065);
+      --ease:         cubic-bezier(.16,1,.3,1);
+      /* dashboard-specific */
+      --err:          rgba(175,70,55,.10);
+      --err-bdr:      rgba(175,70,55,.22);
+      --err-txt:      #c8796a;
+    }
+
+    /* ── BASE ───────────────────────────────────────────────── */
+    html { background: var(--ink); }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--ink);
+      color: var(--text);
+      min-height: 100dvh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── AMBIENT GLOW (from rsvp.html) ─────────────────────── */
+    .ambient {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 100% 55% at 50% 0%,  rgba(110,75,30,.07)  0%, transparent 70%),
+        radial-gradient(ellipse  80% 45% at 50% 100%, rgba( 70,45,20,.09) 0%, transparent 70%);
+    }
+
+    /* ── GRAIN TEXTURE (from rsvp.html) ────────────────────── */
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='.038'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 260px 260px;
+      mix-blend-mode: overlay;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       PASSWORD GATE
+    ══════════════════════════════════════════════════════════ */
+    .gate-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse 100% 55% at 50% 0%, rgba(110,75,30,.07) 0%, transparent 70%),
+        var(--ink);
+      transition: opacity .48s var(--ease);
+    }
+    .gate-overlay.unlocking { opacity: 0; pointer-events: none; }
+
+    .gate-card {
+      position: relative;
+      width: 100%; max-width: 400px;
+      background: var(--glass);
+      border: 1px solid var(--gold-20);
+      border-radius: 3px;
+      backdrop-filter: blur(22px) saturate(130%);
+      -webkit-backdrop-filter: blur(22px) saturate(130%);
+      padding: clamp(36px,7vw,56px) clamp(28px,6vw,48px);
+      text-align: center;
+      overflow: hidden;
+    }
+    .gate-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(135deg, var(--gold-08) 0%, transparent 52%);
+    }
+    @supports not (backdrop-filter: blur(1px)) {
+      .gate-card { background: rgba(34,30,27,.95); }
+    }
+
+    .gate-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 9px; font-weight: 400;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); opacity: .68;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      margin-bottom: 20px;
+      position: relative; z-index: 1;
+    }
+    .gate-eyebrow::before, .gate-eyebrow::after {
+      content: ''; flex: 1; max-width: 52px; height: 1px; background: var(--gold-20);
+    }
+
+    .gate-name {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: clamp(1.45rem,4vw,1.9rem);
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text); line-height: 1.1;
+      margin-bottom: 6px;
+      position: relative; z-index: 1;
+    }
+    .gate-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(.9rem,2vw,1.05rem);
+      color: var(--text-3);
+      margin-bottom: 26px;
+      position: relative; z-index: 1;
+    }
+    .gate-ornament {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--gold); opacity: .26;
+      letter-spacing: 7px; font-size: .82rem;
+      margin-bottom: 28px;
+      position: relative; z-index: 1;
+    }
+
+    .gate-label {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 8.5px; font-weight: 400;
+      letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold); opacity: .80;
+      margin-bottom: 9px;
+      text-align: left;
+      position: relative; z-index: 1;
+    }
+    .gate-input {
+      position: relative; z-index: 1;
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,251,245,.04);
+      border: 1px solid var(--gold-20); border-radius: 2px;
+      color: var(--text);
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: 1rem; letter-spacing: 5px; text-align: center;
+      outline: none; appearance: none; -webkit-appearance: none;
+      transition: border-color .2s, background .2s;
+    }
+    .gate-input:focus {
+      border-color: rgba(196,169,122,.5);
+      background: rgba(255,251,245,.065);
+    }
+    .gate-input::placeholder { color: var(--text-3); letter-spacing: 2px; }
+
+    .gate-btn {
+      position: relative; width: 100%; padding: 14px 32px; margin-top: 13px;
+      background: transparent;
+      border: 1px solid var(--gold); border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 10px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); cursor: pointer; overflow: hidden;
+      transition: color .3s;
+    }
+    .gate-btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold);
+      transform: translateX(-102%); transition: transform .36s var(--ease);
+    }
+    .gate-btn:hover::after, .gate-btn:focus::after { transform: translateX(0); }
+    .gate-btn:hover, .gate-btn:focus { color: var(--ink); outline: none; }
+    .gate-btn-label { position: relative; z-index: 1; }
+
+    .gate-error {
+      display: none; margin-top: 14px; padding: 10px 14px;
+      background: var(--err); border: 1px solid var(--err-bdr); border-radius: 2px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .96rem; color: var(--err-txt); line-height: 1.5;
+      position: relative; z-index: 1;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       DASHBOARD SHELL
+    ══════════════════════════════════════════════════════════ */
+    .dashboard {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: clamp(48px,6vw,80px) clamp(20px,4vw,52px) clamp(60px,8vw,100px);
+      position: relative; z-index: 1;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .dash-header {
+      text-align: center;
+      padding-bottom: clamp(32px,4.5vw,48px);
+      margin-bottom: clamp(24px,3.5vw,36px);
+      border-bottom: 1px solid var(--gold-12);
+    }
+    .dash-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); opacity: .72;
+      display: flex; align-items: center; justify-content: center; gap: 13px;
+      margin-bottom: 14px;
+    }
+    .dash-eyebrow::before {
+      content: ''; flex: 1; max-width: 110px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-20));
+    }
+    .dash-eyebrow::after {
+      content: ''; flex: 1; max-width: 110px; height: 1px;
+      background: linear-gradient(to right, var(--gold-20), transparent);
+    }
+    .dash-title {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: clamp(1.9rem,4.5vw,3.2rem);
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text); line-height: 1.05;
+      margin-bottom: 10px;
+    }
+    .dash-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(1rem,2vw,1.2rem);
+      color: var(--text-3);
+    }
+
+    /* ── STATUS BAR ─────────────────────────────────────────── */
+    .dash-status {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+      margin-bottom: 22px;
+    }
+    .status-left {
+      display: flex; align-items: center; gap: 9px;
+      font-family: 'Jost', sans-serif;
+      font-size: 8.5px; font-weight: 400;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); opacity: .35;
+      flex-shrink: 0;
+      transition: opacity .25s, transform .25s;
+    }
+    .status-dot.live {
+      opacity: 1;
+      animation: dotPulse .95s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { opacity: .5;  transform: scale(1);    }
+      50%      { opacity: 1;  transform: scale(1.35); }
+    }
+
+    .refresh-btn {
+      padding: 7px 16px;
+      border: 1px solid var(--gold-20); border-radius: 2px;
+      background: transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 8.5px; font-weight: 400;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--text-3); cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .refresh-btn:hover:not(:disabled) {
+      border-color: var(--gold); color: var(--gold); background: var(--gold-05);
+    }
+    .refresh-btn:disabled { opacity: .30; cursor: default; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SUMMARY CARDS
+    ══════════════════════════════════════════════════════════ */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: clamp(32px,5vw,52px);
+    }
+
+    /* Glass card (mirrors .glass from rsvp.html) */
+    .summary-card {
+      position: relative; border-radius: 3px;
+      background: var(--glass);
+      border: 1px solid var(--gold-20);
+      backdrop-filter: blur(18px) saturate(120%);
+      -webkit-backdrop-filter: blur(18px) saturate(120%);
+      padding: clamp(20px,3vw,28px) clamp(14px,2vw,22px);
+      text-align: center; overflow: hidden;
+      transition: border-color .38s var(--ease), transform .38s var(--ease), box-shadow .38s var(--ease);
+    }
+    .summary-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(135deg, var(--gold-08) 0%, transparent 52%);
+    }
+    .summary-card:hover {
+      border-color: rgba(196,169,122,.38);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.28), 0 0 0 1px var(--gold-05) inset;
+    }
+    @supports not (backdrop-filter: blur(1px)) {
+      .summary-card { background: rgba(34,30,27,.92); }
+    }
+
+    .card-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 8px; font-weight: 400;
+      letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold); opacity: .68;
+      margin-bottom: 14px;
+      line-height: 1.45;
+      position: relative; z-index: 1;
+    }
+    .card-value {
+      font-family: 'Jost', sans-serif; font-weight: 200;
+      font-size: clamp(2.4rem,4.5vw,3.6rem);
+      line-height: 1; color: var(--text);
+      margin-bottom: 8px;
+      position: relative; z-index: 1;
+      transition: color .3s;
+    }
+    .summary-card:hover .card-value { color: var(--gold-lt); }
+    .card-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(.76rem,1.3vw,.9rem);
+      color: var(--text-3); line-height: 1.4;
+      position: relative; z-index: 1;
+    }
+
+    /* Skeleton shimmer */
+    @keyframes shimmer {
+      0%,100% { opacity: .2; }
+      50%      { opacity: .5; }
+    }
+    .skel {
+      background: var(--gold-12); border-radius: 2px;
+      animation: shimmer 1.7s ease-in-out infinite;
+      display: block; margin: 0 auto;
+    }
+    .skel-val { width: 52%; height: clamp(2.4rem,4.5vw,3.6rem); margin-bottom: 8px; }
+    .skel-sub { width: 78%; height: .85rem; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       STATE CONTAINERS
+    ══════════════════════════════════════════════════════════ */
+    .state-loading,
+    .state-error,
+    .state-content { display: none; }
+    .state-loading.on,
+    .state-error.on,
+    .state-content.on { display: block; }
+
+    /* ── Loading ────────────────────────────────────────────── */
+    .loading-inner { text-align: center; padding: 68px 24px; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--gold-20);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      margin: 0 auto 22px;
+      animation: spin .85s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text {
+      font-family: 'Jost', sans-serif;
+      font-size: 8.5px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    /* ── Error ──────────────────────────────────────────────── */
+    .error-inner { text-align: center; padding: 16px 0 52px; }
+    .error-card {
+      max-width: 500px; margin: 0 auto;
+      background: var(--glass);
+      border: 1px solid var(--err-bdr); border-radius: 3px;
+      padding: clamp(28px,5vw,44px) clamp(24px,4vw,40px);
+      position: relative; overflow: hidden;
+    }
+    .error-card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(135deg, var(--err) 0%, transparent 60%);
+    }
+    .error-glyph {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; color: var(--err-txt); opacity: .6;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+    }
+    .error-heading {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: .95rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text); margin-bottom: 12px;
+      position: relative; z-index: 1;
+    }
+    .error-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(1rem,1.8vw,1.12rem);
+      color: var(--text-3); line-height: 1.65;
+      margin-bottom: 8px;
+      position: relative; z-index: 1;
+    }
+    .error-detail {
+      font-family: 'Jost', sans-serif;
+      font-size: 7.5px; letter-spacing: 1px;
+      color: var(--err-txt); opacity: .5;
+      margin-bottom: 22px; word-break: break-all;
+      position: relative; z-index: 1;
+    }
+    .retry-btn {
+      position: relative;
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid var(--gold); border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); cursor: pointer; overflow: hidden;
+      transition: color .3s;
+      z-index: 1;
+    }
+    .retry-btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--gold);
+      transform: translateX(-102%); transition: transform .36s var(--ease);
+    }
+    .retry-btn:hover::after { transform: translateX(0); }
+    .retry-btn:hover { color: var(--ink); }
+    .retry-btn-label { position: relative; z-index: 2; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       TABLE SECTION
+    ══════════════════════════════════════════════════════════ */
+    .table-section {
+      background: var(--ink-alt);
+      border: 1px solid var(--gold-12); border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .table-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 14px;
+      padding: clamp(16px,2.5vw,22px) clamp(18px,3vw,28px);
+      border-bottom: 1px solid var(--gold-12);
+    }
+    .table-heading {
+      font-family: 'Jost', sans-serif; font-weight: 300;
+      font-size: clamp(.92rem,2vw,1.15rem);
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--text);
+    }
+    .table-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: .88rem; color: var(--text-3);
+      margin-left: 8px;
+    }
+
+    .export-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 18px;
+      border: 1px solid var(--gold-20); border-radius: 2px;
+      background: transparent;
+      font-family: 'Jost', sans-serif;
+      font-size: 8.5px; font-weight: 400;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--text-3); cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .export-btn:hover:not(:disabled) {
+      border-color: var(--gold); color: var(--gold); background: var(--gold-05);
+    }
+    .export-btn:disabled { opacity: .28; cursor: default; }
+    .export-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+    /* ── Table wrap ─────────────────────────────────────────── */
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%; min-width: 700px;
+      border-collapse: collapse;
+    }
+
+    /* ── Table head ─────────────────────────────────────────── */
+    thead th {
+      padding: 11px clamp(12px,2vw,20px);
+      font-family: 'Jost', sans-serif;
+      font-size: 8px; font-weight: 400;
+      letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--gold); opacity: .68;
+      text-align: left; white-space: nowrap;
+      border-bottom: 1px solid var(--gold-12);
+      background: var(--ink-alt);
+      cursor: pointer; user-select: none;
+      transition: opacity .15s, color .15s;
+    }
+    thead th:hover   { opacity: 1; }
+    thead th.sorted  { opacity: 1; color: var(--gold-lt); }
+
+    .sort-arrow {
+      display: inline-block; margin-left: 5px;
+      font-size: 7px; vertical-align: middle;
+      opacity: 0; transition: opacity .15s;
+    }
+    thead th.sorted .sort-arrow { opacity: .85; }
+
+    /* ── Table body ─────────────────────────────────────────── */
+    tbody tr {
+      border-bottom: 1px solid rgba(196,169,122,.065);
+      transition: background .12s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,251,245,.025); }
+    tbody tr:nth-child(even) { background: rgba(255,251,245,.01); }
+    tbody tr:nth-child(even):hover { background: rgba(255,251,245,.028); }
+
+    tbody td {
+      padding: 14px clamp(12px,2vw,20px);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(.96rem,1.6vw,1.06rem);
+      color: var(--text-2);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .td-name { color: var(--text); font-weight: 400; white-space: nowrap; }
+
+    .td-email a {
+      color: var(--text-2);
+      text-decoration: underline;
+      text-decoration-color: var(--gold-20);
+      text-underline-offset: 3px;
+      transition: color .15s, text-decoration-color .15s;
+      word-break: break-all;
+    }
+    .td-email a:hover { color: var(--gold); text-decoration-color: var(--gold); }
+
+    .td-guests {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300; font-size: .9rem; letter-spacing: .04em;
+      text-align: center;
+    }
+
+    /* Event pills */
+    .td-events .pill-wrap { display: flex; flex-wrap: wrap; gap: 5px; min-width: 200px; }
+    .pill {
+      display: inline-flex; align-items: center;
+      padding: 2px 8px;
+      border: 1px solid var(--gold-20); border-radius: 1px;
+      font-family: 'Jost', sans-serif;
+      font-size: 7px; font-weight: 400;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); opacity: .75;
+      white-space: nowrap;
+    }
+
+    .td-message {
+      max-width: 250px;
+      font-style: italic;
+      font-size: clamp(.88rem,1.5vw,.98rem) !important;
+    }
+    .msg-text {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.55;
+    }
+
+    .td-timestamp {
+      font-family: 'Jost', sans-serif;
+      font-size: .76rem; letter-spacing: .02em;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+
+    .no-data-row td {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: var(--text-3);
+      font-size: 1.05rem;
+    }
+
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .dash-footer {
+      margin-top: clamp(52px,7vw,80px);
+      padding-top: clamp(28px,4vw,40px);
+      border-top: 1px solid var(--gold-12);
+      text-align: center;
+    }
+    .dash-footer-motto {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(1.05rem,2vw,1.3rem);
+      color: var(--gold); opacity: .38;
+      margin-bottom: 10px;
+    }
+    .dash-footer-dates {
+      font-family: 'Jost', sans-serif;
+      font-size: 8px; letter-spacing: 3.5px; text-transform: uppercase;
+      color: var(--text-3); opacity: .40;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 960px) {
+      .summary-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 620px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .table-toolbar { flex-direction: column; align-items: flex-start; }
+      .dash-status   { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="grain"   aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════ PASSWORD GATE ══════════════════════════ -->
+  <div class="gate-overlay" id="gateOverlay"
+       role="dialog" aria-label="Authentication required" aria-modal="true">
+    <div class="gate-card">
+      <div class="gate-eyebrow">Private &middot; Family Access</div>
+      <h1 class="gate-name">Wilbum Lopez</h1>
+      <p class="gate-subtitle">Celebration of Life &nbsp;&middot;&nbsp; RSVP Dashboard</p>
+      <div class="gate-ornament">&#10022; &thinsp; &#10022; &thinsp; &#10022;</div>
+      <form id="gateForm" novalidate>
+        <label class="gate-label" for="gatePass">Access Code</label>
+        <input
+          class="gate-input"
+          type="password"
+          id="gatePass"
+          name="pass"
+          placeholder="&middot;&middot;&middot;&middot;&middot;&middot;&middot;"
+          autocomplete="current-password"
+          autofocus
+        >
+        <button type="submit" class="gate-btn">
+          <span class="gate-btn-label">Enter Dashboard</span>
+        </button>
+        <div class="gate-error" id="gateError" role="alert">
+          Incorrect access code &mdash; please try again.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ DASHBOARD ══════════════════════════════ -->
+  <div class="dashboard" id="dashboard" style="display:none;" aria-live="polite">
+
+    <!-- Header -->
+    <header class="dash-header">
+      <div class="dash-eyebrow">Family Dashboard</div>
+      <h1 class="dash-title">RSVP Dashboard</h1>
+      <p class="dash-subtitle">Celebration of Life &nbsp;&middot;&nbsp; Wilbum &ldquo;Wil&rdquo; Lopez</p>
+    </header>
+
+    <!-- Status bar -->
+    <div class="dash-status" role="status" aria-live="polite">
+      <div class="status-left">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Connecting&hellip;</span>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" type="button" disabled>
+        &#8635;&nbsp; Refresh Now
+      </button>
+    </div>
+
+    <!-- Summary cards (skeleton while loading, replaced by real data) -->
+    <div class="summary-grid" id="summaryGrid">
+      <div class="summary-card">
+        <div class="card-label">Total RSVPs</div>
+        <div class="card-value"><span class="skel skel-val"></span></div>
+        <div class="card-sub"><span class="skel skel-sub"></span></div>
+      </div>
+      <div class="summary-card">
+        <div class="card-label">Total Guests</div>
+        <div class="card-value"><span class="skel skel-val"></span></div>
+        <div class="card-sub"><span class="skel skel-sub"></span></div>
+      </div>
+      <div class="summary-card">
+        <div class="card-label">Military Honors</div>
+        <div class="card-value"><span class="skel skel-val"></span></div>
+        <div class="card-sub"><span class="skel skel-sub"></span></div>
+      </div>
+      <div class="summary-card">
+        <div class="card-label">Celebration of Life</div>
+        <div class="card-value"><span class="skel skel-val"></span></div>
+        <div class="card-sub"><span class="skel skel-sub"></span></div>
+      </div>
+      <div class="summary-card">
+        <div class="card-label">Donuts Needed</div>
+        <div class="card-value"><span class="skel skel-val"></span></div>
+        <div class="card-sub"><span class="skel skel-sub"></span></div>
+      </div>
+    </div>
+
+    <!-- Loading state -->
+    <div class="state-loading on" id="stateLoading">
+      <div class="loading-inner">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="loading-text" role="status">Loading guest data</p>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div class="state-error" id="stateError">
+      <div class="error-inner">
+        <div class="error-card">
+          <div class="error-glyph" aria-hidden="true">&#10005;</div>
+          <h2 class="error-heading">Unable to Reach Data Source</h2>
+          <p class="error-body">
+            Could not connect to the RSVP database. Check your network and try again.
+          </p>
+          <p class="error-detail" id="errorDetail"></p>
+          <button class="retry-btn" id="retryBtn" type="button">
+            <span class="retry-btn-label">Try Again</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content: guest table -->
+    <div class="state-content" id="stateContent">
+      <div class="table-section">
+        <div class="table-toolbar">
+          <div>
+            <span class="table-heading">Guest List</span>
+            <span class="table-count" id="tableCount"></span>
+          </div>
+          <button class="export-btn" id="exportBtn" type="button" disabled>
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true">
+              <path d="M6 1v6.5M3.5 5l2.5 2.5L8.5 5M1.5 9.5v.5A1 1 0 002.5 11h7a1 1 0 001-1v-.5"/>
+            </svg>
+            Export CSV
+          </button>
+        </div>
+        <div class="table-wrap" role="region" aria-label="Guest list" tabindex="0">
+          <table id="guestTable">
+            <thead>
+              <tr>
+                <th data-col="name"      tabindex="0" aria-sort="ascending" class="sorted">
+                  Name <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+                <th data-col="email"     tabindex="0" aria-sort="none">
+                  Email <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+                <th data-col="guests"    tabindex="0" aria-sort="none"
+                    style="text-align:center;width:66px;">
+                  # <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+                <th data-col="events"    tabindex="0" aria-sort="none">
+                  Events <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+                <th data-col="message"   tabindex="0" aria-sort="none">
+                  Message <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+                <th data-col="timestamp" tabindex="0" aria-sort="none">
+                  Submitted <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="guestBody">
+              <!-- rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div><!-- /state-content -->
+
+    <!-- Footer -->
+    <footer class="dash-footer">
+      <p class="dash-footer-motto">Faithful &middot; Loving &middot; Steadfast</p>
+      <p class="dash-footer-dates">
+        Wilbum &ldquo;Wil&rdquo; Lopez &nbsp;&middot;&nbsp;
+        December&nbsp;31,&nbsp;1949 &ndash; April&nbsp;27,&nbsp;2026
+      </p>
+    </footer>
+
+  </div><!-- /dashboard -->
+
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════════════
+       CONFIGURATION — replace these two values with your deployed URLs
+    ═══════════════════════════════════════════════════════════════════ */
+    const DASHBOARD_ENDPOINT = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+    const DASHBOARD_KEY      = 'DASHBOARD_KEY_HERE';
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       PASSWORD GATE
+    ═══════════════════════════════════════════════════════════════════ */
+    (function () {
+      const PASS    = 'wil2026';
+      const SK_KEY  = 'col_dash_auth_v1';
+      const overlay = document.getElementById('gateOverlay');
+      const dash    = document.getElementById('dashboard');
+      const form    = document.getElementById('gateForm');
+      const input   = document.getElementById('gatePass');
+      const errEl   = document.getElementById('gateError');
+
+      function unlock() {
+        sessionStorage.setItem(SK_KEY, '1');
+        overlay.classList.add('unlocking');
+        dash.style.display = 'block';
+        setTimeout(() => { overlay.style.display = 'none'; }, 520);
+        initDashboard();
+      }
+
+      // Already authenticated this session?
+      if (sessionStorage.getItem(SK_KEY) === '1') {
+        overlay.style.display = 'none';
+        dash.style.display    = 'block';
+        initDashboard();
+        return;
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (input.value === PASS) {
+          errEl.style.display = 'none';
+          unlock();
+        } else {
+          errEl.style.display = 'block';
+          input.select();
+        }
+      });
+    })();
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       DASHBOARD STATE
+    ═══════════════════════════════════════════════════════════════════ */
+    let _data      = null;   // last successful payload
+    let _sortCol   = 'name';
+    let _sortDir   = 'asc';
+    let _autoTimer = null;
+
+    // Labels for event values that come from the form checkboxes
+    const EVENT_LABELS = {
+      'Military Honors Ceremony': 'Military Honors',
+      'Memorial Service':         'Celebration of Life',
+    };
+    function eventLabel(ev) {
+      return EVENT_LABELS[ev] || ev.slice(0, 22);
+    }
+
+    /* ── State visibility ─────────────────────────────────────────── */
+    function showState(name) {
+      document.getElementById('stateLoading').classList.toggle('on', name === 'loading');
+      document.getElementById('stateError'  ).classList.toggle('on', name === 'error');
+      document.getElementById('stateContent').classList.toggle('on', name === 'content');
+    }
+
+    function setStatus(text, live = false) {
+      document.getElementById('statusText').textContent = text;
+      document.getElementById('statusDot' ).classList.toggle('live', live);
+      document.getElementById('refreshBtn').disabled = live;
+    }
+
+    /* ── Init ─────────────────────────────────────────────────────── */
+    function initDashboard() {
+      // Wire controls
+      document.getElementById('refreshBtn').addEventListener('click', () => {
+        clearInterval(_autoTimer);
+        fetchData();
+        _autoTimer = setInterval(() => fetchData(true), 30_000);
+      });
+      document.getElementById('retryBtn' ).addEventListener('click', () => fetchData());
+      document.getElementById('exportBtn').addEventListener('click', exportCSV);
+
+      // Table header sort
+      document.querySelectorAll('#guestTable thead th').forEach(th => {
+        th.addEventListener('click',   () => handleSort(th.dataset.col));
+        th.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleSort(th.dataset.col);
+          }
+        });
+      });
+      updateSortUI();
+
+      // First load + auto-refresh every 30 s
+      fetchData();
+      _autoTimer = setInterval(() => fetchData(true), 30_000);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       DATA FETCH
+    ═══════════════════════════════════════════════════════════════════ */
+    async function fetchData(silent = false) {
+      setStatus('Updating\u2026', true);
+      if (!silent) showState('loading');
+
+      const isDevMode =
+        !DASHBOARD_ENDPOINT || DASHBOARD_ENDPOINT === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+      try {
+        let json;
+        if (isDevMode) {
+          // Simulate latency in dev mode so loading state is visible
+          await new Promise(r => setTimeout(r, 700));
+          json = mockData();
+        } else {
+          const url = DASHBOARD_ENDPOINT
+            + '?action=dashboard&key=' + encodeURIComponent(DASHBOARD_KEY);
+          const res = await fetch(url, { cache: 'no-store' });
+          if (!res.ok) throw new Error('HTTP\u00a0' + res.status + '\u00a0' + res.statusText);
+          json = await res.json();
+        }
+
+        _data = json;
+        renderDashboard(json);
+        showState('content');
+        document.getElementById('exportBtn').disabled = false;
+
+        const now = new Date();
+        const ts  = now.toLocaleTimeString('en-US', {
+          hour: 'numeric', minute: '2-digit', second: '2-digit',
+        });
+        setStatus(
+          'Last updated: ' + ts + (isDevMode ? '\u2002\u2014\u2002sample data' : ''),
+          false
+        );
+
+      } catch (err) {
+        if (!silent || !_data) {
+          document.getElementById('errorDetail').textContent = err.message;
+          showState('error');
+          setStatus('Failed to load data');
+        } else {
+          // Silent refresh failed but we have stale data — keep showing it
+          const ts = new Date().toLocaleTimeString('en-US', {
+            hour: 'numeric', minute: '2-digit',
+          });
+          setStatus('Last updated: ' + ts + ' (stale)', false);
+        }
+      }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       RENDER
+    ═══════════════════════════════════════════════════════════════════ */
+    function renderDashboard(data) {
+      renderCards(data);
+      renderTable(data.rsvps || []);
+
+      const n = data.total_rsvps || 0;
+      document.getElementById('tableCount').textContent =
+        '\u2014\u00a0' + n + '\u00a0' + (n === 1 ? 'submission' : 'submissions');
+    }
+
+    /* ── Summary cards ────────────────────────────────────────────── */
+    function renderCards(data) {
+      const g      = Number(data.total_guests) || 0;
+      const dozens = Math.ceil(g / 12);
+      const donuts = dozens * 12;
+      const cost   = dozens * 9;
+
+      const cards = [
+        {
+          label: 'Total RSVPs',
+          value: data.total_rsvps || 0,
+          sub:   'submissions',
+        },
+        {
+          label: 'Total Guests',
+          value: g,
+          sub:   'attending in all',
+        },
+        {
+          label: 'Military Honors',
+          value: data.ceremony_count || 0,
+          sub:   'Riverside Cemetery',
+        },
+        {
+          label: 'Celebration of Life',
+          value: data.celebration_count || 0,
+          sub:   'Calvary Chapel',
+        },
+        {
+          label: 'Donuts Needed',
+          value: donuts,
+          sub:   dozens + '\u00a0dozen\u00a0\u00b7\u00a0~$' + cost,
+        },
+      ];
+
+      document.getElementById('summaryGrid').innerHTML = cards.map(c => `
+        <div class="summary-card">
+          <div class="card-label">${esc(c.label)}</div>
+          <div class="card-value">${esc(String(c.value))}</div>
+          <div class="card-sub">${esc(c.sub)}</div>
+        </div>
+      `).join('');
+    }
+
+    /* ── Table ────────────────────────────────────────────────────── */
+    function renderTable(rows) {
+      const sorted = sortRows(rows.slice());
+      const tbody  = document.getElementById('guestBody');
+
+      if (!sorted.length) {
+        tbody.innerHTML =
+          '<tr class="no-data-row"><td colspan="6">No RSVPs have been received yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = sorted.map(r => {
+        const evts  = Array.isArray(r.events)
+          ? r.events
+          : (r.events ? [r.events] : []);
+
+        const pills = evts
+          .map(e => `<span class="pill">${esc(eventLabel(e))}</span>`)
+          .join('');
+
+        const ts     = r.timestamp ? fmtDate(r.timestamp) : '\u2014';
+        const hasMsg = r.message && r.message.trim().length > 0;
+
+        return `<tr>
+          <td class="td-name">${esc(r.name || '\u2014')}</td>
+          <td class="td-email">
+            <a href="mailto:${esc(r.email || '')}" target="_blank" rel="noopener noreferrer">
+              ${esc(r.email || '\u2014')}
+            </a>
+          </td>
+          <td class="td-guests">${r.guests != null ? esc(String(r.guests)) : '\u2014'}</td>
+          <td class="td-events">
+            <div class="pill-wrap">
+              ${pills || '<span style="font-style:italic;font-family:\'Cormorant Garamond\',serif;opacity:.3;">\u2014</span>'}
+            </div>
+          </td>
+          <td class="td-message">
+            ${hasMsg
+              ? `<div class="msg-text" title="${esc(r.message)}">${esc(r.message)}</div>`
+              : `<span style="font-style:italic;opacity:.3;">\u2014</span>`}
+          </td>
+          <td class="td-timestamp">${ts}</td>
+        </tr>`;
+      }).join('');
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SORT
+    ═══════════════════════════════════════════════════════════════════ */
+    function handleSort(col) {
+      if (_sortCol === col) {
+        _sortDir = _sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        _sortCol = col;
+        _sortDir = 'asc';
+      }
+      updateSortUI();
+      if (_data) renderTable(_data.rsvps || []);
+    }
+
+    function updateSortUI() {
+      document.querySelectorAll('#guestTable thead th').forEach(th => {
+        const active = th.dataset.col === _sortCol;
+        th.classList.toggle('sorted', active);
+        const arrow = th.querySelector('.sort-arrow');
+        if (arrow) arrow.textContent = _sortDir === 'asc' ? '\u25b2' : '\u25bc';
+        th.setAttribute('aria-sort',
+          active ? (_sortDir === 'asc' ? 'ascending' : 'descending') : 'none');
+      });
+    }
+
+    function sortRows(rows) {
+      const dir = _sortDir === 'asc' ? 1 : -1;
+      return rows.sort((a, b) => {
+        let av, bv;
+        switch (_sortCol) {
+          case 'name':
+            av = (a.name  || '').toLowerCase();
+            bv = (b.name  || '').toLowerCase();
+            break;
+          case 'email':
+            av = (a.email || '').toLowerCase();
+            bv = (b.email || '').toLowerCase();
+            break;
+          case 'guests':
+            av = Number(a.guests) || 0;
+            bv = Number(b.guests) || 0;
+            break;
+          case 'events':
+            av = evStr(a.events).toLowerCase();
+            bv = evStr(b.events).toLowerCase();
+            break;
+          case 'message':
+            av = (a.message || '').toLowerCase();
+            bv = (b.message || '').toLowerCase();
+            break;
+          case 'timestamp':
+            av = a.timestamp || '';
+            bv = b.timestamp || '';
+            break;
+          default: av = ''; bv = '';
+        }
+        return av < bv ? -dir : av > bv ? dir : 0;
+      });
+    }
+
+    function evStr(ev) {
+      return Array.isArray(ev) ? ev.join(',') : (ev || '');
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       CSV EXPORT
+    ═══════════════════════════════════════════════════════════════════ */
+    function exportCSV() {
+      if (!_data || !(_data.rsvps || []).length) return;
+
+      const headers = ['Name', 'Email', 'Guests', 'Events', 'Message', 'Submitted'];
+      const dataRows = sortRows(_data.rsvps.slice()).map(r => [
+        r.name     || '',
+        r.email    || '',
+        r.guests   != null ? r.guests : '',
+        Array.isArray(r.events) ? r.events.join('; ') : (r.events || ''),
+        r.message  || '',
+        r.timestamp ? fmtDate(r.timestamp) : '',
+      ]);
+
+      const csv = [headers, ...dataRows]
+        .map(row =>
+          row.map(cell => {
+            const s = String(cell).replace(/"/g, '""');
+            return /[,"\n\r]/.test(s) ? '"' + s + '"' : s;
+          }).join(',')
+        )
+        .join('\r\n');
+
+      // BOM so Excel opens with correct encoding
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url  = URL.createObjectURL(blob);
+      const a    = Object.assign(document.createElement('a'), {
+        href:     url,
+        download: 'wil-lopez-rsvps-' + new Date().toISOString().slice(0, 10) + '.csv',
+      });
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 300);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════════════════════════════════ */
+    function esc(s) {
+      return String(s)
+        .replace(/&/g,  '&amp;')
+        .replace(/</g,  '&lt;')
+        .replace(/>/g,  '&gt;')
+        .replace(/"/g,  '&quot;')
+        .replace(/'/g,  '&#39;');
+    }
+
+    function fmtDate(ts) {
+      try {
+        const d = new Date(ts);
+        return d.toLocaleDateString('en-US', {
+          month: 'short', day: 'numeric', year: 'numeric',
+        }) + '\u00a0\u00b7\u00a0' + d.toLocaleTimeString('en-US', {
+          hour: 'numeric', minute: '2-digit',
+        });
+      } catch (_) { return ts || '\u2014'; }
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════════
+       MOCK DATA
+       Shown whenever DASHBOARD_ENDPOINT is still the placeholder string,
+       so you can see the full layout before wiring up the real backend.
+    ═══════════════════════════════════════════════════════════════════ */
+    function mockData() {
+      return {
+        total_rsvps:        14,
+        total_guests:       38,
+        ceremony_count:     19,
+        celebration_count:  36,
+        rsvps: [
+          {
+            name:      'Maria Lopez',
+            email:     'maria@example.com',
+            guests:    4,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   'Wil was such a wonderful man. We will always cherish the memories shared around his table.',
+            timestamp: '2026-05-05T14:22:00Z',
+          },
+          {
+            name:      'Robert Castillo',
+            email:     'robert@example.com',
+            guests:    2,
+            events:    ['Memorial Service'],
+            message:   '',
+            timestamp: '2026-05-05T16:10:00Z',
+          },
+          {
+            name:      'Diana Gutierrez',
+            email:     'diana@example.com',
+            guests:    3,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   'Thank you for including us. He was such a steady presence in our lives.',
+            timestamp: '2026-05-06T09:45:00Z',
+          },
+          {
+            name:      'James Thornton',
+            email:     'james@example.com',
+            guests:    2,
+            events:    ['Memorial Service'],
+            message:   '',
+            timestamp: '2026-05-06T11:02:00Z',
+          },
+          {
+            name:      'Sandra Morales',
+            email:     'sandra@example.com',
+            guests:    5,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   'Wil meant so much to our family. God bless all of you during this time.',
+            timestamp: '2026-05-06T13:55:00Z',
+          },
+          {
+            name:      'Kevin Park',
+            email:     'kevin@example.com',
+            guests:    1,
+            events:    ['Military Honors Ceremony'],
+            message:   'Semper Fi.',
+            timestamp: '2026-05-06T15:30:00Z',
+          },
+          {
+            name:      'Angela Reyes',
+            email:     'angela@example.com',
+            guests:    4,
+            events:    ['Memorial Service'],
+            message:   'Sending so much love to the Lopez family.',
+            timestamp: '2026-05-06T18:14:00Z',
+          },
+          {
+            name:      'Thomas Bennett',
+            email:     'thomas@example.com',
+            guests:    2,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   '',
+            timestamp: '2026-05-07T08:05:00Z',
+          },
+          {
+            name:      'Linda Vasquez',
+            email:     'linda@example.com',
+            guests:    3,
+            events:    ['Memorial Service'],
+            message:   'Papa Wil will be forever in our hearts.',
+            timestamp: '2026-05-07T09:22:00Z',
+          },
+          {
+            name:      'Carlos Mendez',
+            email:     'carlos@example.com',
+            guests:    2,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   '',
+            timestamp: '2026-05-07T10:08:00Z',
+          },
+          {
+            name:      'Patricia Nguyen',
+            email:     'patricia@example.com',
+            guests:    2,
+            events:    ['Memorial Service'],
+            message:   'He was so proud of his family. This is a beautiful way to honor him.',
+            timestamp: '2026-05-07T10:55:00Z',
+          },
+          {
+            name:      'Michael Torres',
+            email:     'michael@example.com',
+            guests:    3,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   '',
+            timestamp: '2026-05-07T11:30:00Z',
+          },
+          {
+            name:      'Rachel Kim',
+            email:     'rachel@example.com',
+            guests:    1,
+            events:    ['Memorial Service'],
+            message:   'Thinking of you all.',
+            timestamp: '2026-05-07T11:48:00Z',
+          },
+          {
+            name:      'David Lopez',
+            email:     'david@example.com',
+            guests:    4,
+            events:    ['Military Honors Ceremony', 'Memorial Service'],
+            message:   'We will carry his legacy forward, always.',
+            timestamp: '2026-05-07T12:00:00Z',
+          },
+        ],
+      };
+    }
+  </script>
+</body>
+</html>
