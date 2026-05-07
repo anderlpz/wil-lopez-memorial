@@ -1088,7 +1088,8 @@
         if (result.success) {
           /* Save RSVP to localStorage so returning visitors can update */
           try {
-            localStorage.setItem('wil_rsvp', JSON.stringify(data));
+            var rsvpCache = Object.assign({}, payload, { events: payload.events.join(', ') });
+            localStorage.setItem('wil_rsvp', JSON.stringify(rsvpCache));
             localStorage.setItem('wil_rsvp_ts', new Date().toISOString());
           } catch(e) {}
           form.style.display = 'none';
