@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ── RESET ──────────────────────────────────────────────────────────────── */
@@ -331,7 +331,8 @@
       margin-bottom: 8px;
       position: relative; z-index: 1;
       transition: color .3s;
-    }
+    
+      font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
     .summary-card:hover .card-value { color: var(--gold-lt); }
     .card-sub {
       font-family: 'Cormorant Garamond', serif;
@@ -339,7 +340,8 @@
       font-size: clamp(1rem,1.5vw,1.12rem);
       color: var(--text-3); line-height: 1.4;
       position: relative; z-index: 1;
-    }
+    
+      font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
 
     /* Skeleton shimmer */
     @keyframes shimmer {
@@ -511,7 +513,8 @@
       background: var(--ink-alt);
       cursor: pointer; user-select: none;
       transition: opacity .15s, color .15s;
-    }
+    
+      font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
     thead th:hover   { opacity: 1; }
     thead th.sorted  { opacity: 1; color: var(--gold-lt); }
 
@@ -550,7 +553,8 @@
       color: var(--text-2);
       vertical-align: top;
       line-height: 1.45;
-    }
+    
+      font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
 
     .td-name { color: var(--text); font-weight: 400; white-space: nowrap; }
 
@@ -581,7 +585,8 @@
       letter-spacing: 2px; text-transform: uppercase;
       color: var(--gold); opacity: 1;
       white-space: nowrap;
-    }
+    
+      font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
 
     .td-message {
       max-width: 250px;
@@ -912,14 +917,6 @@
             <span class="table-heading">Guest List</span>
             <span class="table-count" id="tableCount"></span>
           </div>
-          <button class="export-btn" id="exportBtn" type="button" disabled>
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
-                 stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"
-                 aria-hidden="true">
-              <path d="M6 1v6.5M3.5 5l2.5 2.5L8.5 5M1.5 9.5v.5A1 1 0 002.5 11h7a1 1 0 001-1v-.5"/>
-            </svg>
-            Export CSV
-          </button>
       <a href="https://drive.google.com/drive/search?q=Wil%20Lopez%20RSVPs" 
          target="_blank" rel="noopener" 
          class="export-btn" 
@@ -1131,7 +1128,7 @@
         _data = json;
         renderDashboard(json);
         showState('content');
-        document.getElementById('exportBtn').disabled = false;
+        
 
         const now = new Date();
         const ts  = now.toLocaleTimeString('en-US', {
