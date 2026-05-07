@@ -808,7 +808,7 @@
        CONFIGURATION — replace these two values with your deployed URLs
     ═══════════════════════════════════════════════════════════════════ */
     const DASHBOARD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxYG5Xc5S1aLlZ07laNKGDTis762Mc3RldSBkyDSyoIFDKy-lrawdIA0l_Yzg0rEEoiqQ/exec';
-    const DASHBOARD_KEY      = 'DASHBOARD_KEY_HERE';
+    const DASHBOARD_KEY      = 'CHANGE_ME_BEFORE_DEPLOYING';
 
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -919,7 +919,7 @@
       if (!silent) showState('loading');
 
       const isDevMode =
-        !DASHBOARD_ENDPOINT || DASHBOARD_ENDPOINT === 'https://script.google.com/macros/s/AKfycbxYG5Xc5S1aLlZ07laNKGDTis762Mc3RldSBkyDSyoIFDKy-lrawdIA0l_Yzg0rEEoiqQ/exec';
+        !DASHBOARD_ENDPOINT || DASHBOARD_ENDPOINT.includes('YOUR_GOOGLE');
 
       try {
         let json;
