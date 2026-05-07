@@ -771,24 +771,6 @@
 
 
     /* ── FOOTER ─────────────────────────────────────────────────────────────── */
-    .dash-footer {
-      margin-top: clamp(52px,7vw,80px);
-      padding-top: clamp(28px,4vw,40px);
-      border-top: 1px solid var(--gold-12);
-      text-align: center;
-    }
-    .dash-footer-motto {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 300;
-      font-size: clamp(1.05rem,2vw,1.3rem);
-      color: var(--gold); opacity: .38;
-      margin-bottom: 10px;
-    }
-    .dash-footer-dates {
-      font-family: 'Jost', sans-serif;
-      font-size: 8px; letter-spacing: 3.5px; text-transform: uppercase;
-      color: var(--text-3); opacity: .40;
-    }
 
     /* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
     @media (max-width: 960px) {
@@ -963,13 +945,6 @@
     </div><!-- /state-content -->
 
     <!-- Footer -->
-    <footer class="dash-footer">
-      <p class="dash-footer-motto">Faithful &middot; Loving &middot; Steadfast</p>
-      <p class="dash-footer-dates">
-        Wilbum &ldquo;Wil&rdquo; Lopez &nbsp;&middot;&nbsp;
-        December&nbsp;31,&nbsp;1949 &ndash; April&nbsp;27,&nbsp;2026
-      </p>
-    </footer>
 
   </div><!-- /dashboard -->
 
@@ -1089,6 +1064,7 @@
        DATA FETCH
     ══════════════════════════════════════════════════════════════════════════ */
     async function fetchData(silent = false) {
+      console.log("[dashboard] fetchData called, silent=" + silent);
       setStatus('Updating\u2026', true);
       if (!silent) showState('loading');
 
@@ -1107,6 +1083,7 @@
           const res = await fetch(url, { redirect: 'follow' });
           if (!res.ok) throw new Error('HTTP\u00a0' + res.status + '\u00a0' + res.statusText);
           const text = await res.text();
+          console.log('[dashboard] response text:', text.substring(0, 200));
           try { json = JSON.parse(text); }
           catch (pe) { throw new Error('Invalid response: ' + text.substring(0, 200)); }
         }
@@ -1127,6 +1104,7 @@
         json.celebration_count = cel;
         _data = json;
         renderDashboard(json);
+        console.log('[dashboard] showing content, data:', JSON.stringify(json).substring(0, 200));
         showState('content');
         
 
