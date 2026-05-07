@@ -349,6 +349,7 @@
       color: var(--text-3); margin-left: 3px;
     }
 
+    .event-motorcade::before { display: none; }
     .event-motorcade {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; font-size: clamp(1rem,1.7vw,1.15rem);
@@ -610,7 +611,9 @@
       .fg-label { font-size: .9rem; }
       .event-schedule-time { font-size: clamp(1rem, 1.5vw, 1.15rem); }
       .event-schedule-label { font-size: clamp(1.15rem, 2vw, 1.35rem); }
-      .event-motorcade { font-size: clamp(1.05rem, 1.7vw, 1.2rem); }
+      .event-motorcade::before { display: none; }
+    .event-motorcade {
+      list-style: none; font-size: clamp(1.05rem, 1.7vw, 1.2rem); }
       .event-note { font-size: 1.05rem; }
       .cal-btn { font-size: 12px; }
       .cb-row span { font-size: clamp(1.15rem, 2vw, 1.3rem); }
