@@ -937,6 +937,20 @@
           catch (pe) { throw new Error('Invalid response: ' + text.substring(0, 200)); }
         }
 
+        /* Flatten summary into root for renderCards compatibility */
+        if (json.summary) {
+          json.total_rsvps       = json.summary.total_rsvps || 0;
+          json.total_guests      = json.summary.total_guests || 0;
+        }
+        /* Recount events client-side from actual RSVP data (more accurate) */
+        var cer = 0, cel = 0;
+        (json.rsvps || []).forEach(function(r) {
+          var evts = (r.events || '').toLowerCase();
+          if (evts.indexOf('ceremony') >= 0 || evts.indexOf('military') >= 0) cer += Number(r.guests) || 1;
+          if (evts.indexOf('memorial') >= 0 || evts.indexOf('celebration') >= 0 || evts.indexOf('service') >= 0) cel += Number(r.guests) || 1;
+        });
+        json.ceremony_count    = cer;
+        json.celebration_count = cel;
         _data = json;
         renderDashboard(json);
         showState('content');
