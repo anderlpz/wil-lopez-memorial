@@ -162,7 +162,7 @@
     /* ── EYEBROW LABEL ──────────────────────────── */
     .label {
       font-family: 'Jost', sans-serif;
-      font-size: 9.5px; font-weight: 400;
+      font-size: 11px; font-weight: 400;
       letter-spacing: 5px; text-transform: uppercase;
       color: var(--gold); opacity: .75;
       display: flex; align-items: center; justify-content: center; gap: 13px;
@@ -269,7 +269,7 @@
     /* Date badge — replaces the redundant event-tag */
     .event-date-badge {
       font-family: 'Jost', sans-serif;
-      font-size: 9px; font-weight: 400;
+      font-size: 11px; font-weight: 400;
       letter-spacing: 4.5px; text-transform: uppercase;
       color: var(--gold); opacity: .65; margin-bottom: 11px;
     }
@@ -286,7 +286,7 @@
       display: flex; align-items: flex-start; gap: 12px;
       margin-bottom: 10px;
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(.98rem,1.8vw,1.12rem);
+      font-size: clamp(1.1rem,1.9vw,1.25rem);
       color: var(--text-2); line-height: 1.55;
     }
     .event-row.no-bullet::before { display: none; }
@@ -306,12 +306,12 @@
     .event-row a:hover { color: var(--gold); text-decoration-color: var(--gold); }
 
     .event-address {
-      display: block; font-size: .9em;
+      display: block; font-size: 1em;
       color: var(--text-3); margin-top: 1px;
     }
 
     .event-note {
-      display: block; font-style: italic; font-size: .875rem;
+      display: block; font-style: italic; font-size: 1rem;
       color: var(--text-3); margin-top: 3px;
     }
 
@@ -335,13 +335,13 @@
     }
     .event-schedule-time {
       font-family: 'Jost', sans-serif;
-      font-size: .77rem; font-weight: 400; letter-spacing: .03em;
+      font-size: clamp(.95rem,1.6vw,1.1rem); font-weight: 400; letter-spacing: .03em;
       color: var(--gold); opacity: .80;
       white-space: nowrap; min-width: 70px; flex-shrink: 0;
     }
     .event-schedule-label {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(.96rem,1.75vw,1.08rem);
+      font-size: clamp(1.1rem,1.9vw,1.25rem);
       color: var(--text-2); line-height: 1.45; flex: 1;
     }
     .event-schedule-sub {
@@ -351,7 +351,7 @@
 
     .event-motorcade {
       font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-size: .87rem;
+      font-style: italic; font-size: clamp(1rem,1.7vw,1.15rem);
       color: var(--text-3); line-height: 1.5;
       margin: 0 0 16px 2px; opacity: .85;
     }
@@ -367,7 +367,7 @@
       padding: 7px 13px;
       border: 1px solid var(--gold-20); border-radius: 2px;
       font-family: 'Jost', sans-serif;
-      font-size: 9.5px; font-weight: 400;
+      font-size: 11px; font-weight: 400;
       letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--text-3); text-decoration: none;
       transition: border-color .2s, color .2s, background .2s;
@@ -394,7 +394,7 @@
     .fg-label {
       display: block;
       font-family: 'Jost', sans-serif;
-      font-size: 9px; font-weight: 400;
+      font-size: 10.5px; font-weight: 400;
       letter-spacing: 3.5px; text-transform: uppercase;
       color: var(--gold); opacity: .82; margin-bottom: 9px;
     }
@@ -410,7 +410,7 @@
       border: 1px solid var(--gold-20); border-radius: 2px;
       color: var(--text);
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1rem,1.8vw,1.12rem);
+      font-size: clamp(1.1rem,2vw,1.25rem);
       outline: none; appearance: none; -webkit-appearance: none;
       transition: border-color .2s, background .2s;
     }
@@ -436,7 +436,7 @@
     }
     .cb-row span {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(.98rem,1.8vw,1.1rem);
+      font-size: clamp(1.1rem,1.9vw,1.25rem);
       color: var(--text-2); line-height: 1.45;
     }
 
@@ -446,7 +446,7 @@
       background: transparent;
       border: 1px solid var(--gold); border-radius: 2px;
       font-family: 'Jost', sans-serif;
-      font-size: 11px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 13px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase;
       color: var(--gold); cursor: pointer; overflow: hidden;
       transition: color .3s;
     }
@@ -464,7 +464,7 @@
       display: none; margin-top: 16px; padding: 13px 18px;
       background: rgba(175,70,55,.10); border: 1px solid rgba(175,70,55,.22);
       border-radius: 2px; font-family: 'Cormorant Garamond', serif;
-      font-size: 1.02rem; color: #c8796a; line-height: 1.55;
+      font-size: clamp(1.05rem,1.8vw,1.2rem); color: #c8796a; line-height: 1.55;
     }
 
     /* Success */
@@ -480,7 +480,7 @@
     }
     .success-body {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: clamp(1.1rem,2vw,1.32rem);
+      font-size: clamp(1.15rem,2vw,1.35rem);
       color: var(--text-2); line-height: 1.85;
       max-width: 420px; margin: 0 auto;
     }
@@ -505,18 +505,18 @@
     }
     .footer-dates {
       font-family: 'Jost', sans-serif;
-      font-size: 9.5px; font-weight: 300;
+      font-size: 11px; font-weight: 300;
       letter-spacing: 4.5px; text-transform: uppercase;
       color: var(--text-3); margin-bottom: 10px;
     }
     .footer-service {
       font-family: 'Cormorant Garamond', serif;
-      font-size: .92rem; color: var(--text-3); opacity: .6;
+      font-size: clamp(1rem,1.7vw,1.15rem); color: var(--text-3); opacity: .6;
     }
     .footer-back {
       display: inline-block; margin-top: 28px;
       font-family: 'Jost', sans-serif;
-      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      font-size: 10.5px; letter-spacing: 3px; text-transform: uppercase;
       color: var(--text-3); text-decoration: none; opacity: .5;
       transition: opacity .2s;
     }
@@ -603,13 +603,17 @@
 
       /* Desktop text legibility */
       .event-title { font-size: clamp(1.6rem, 2.5vw, 2rem); }
-      .event-date-badge { font-size: 11px; }
-      .event-row { font-size: clamp(1.05rem, 1.8vw, 1.2rem); }
+      .event-date-badge { font-size: 12.5px; }
+      .event-row { font-size: clamp(1.15rem, 2vw, 1.35rem); }
       .tribute-body { font-size: clamp(1.15rem, 2vw, 1.35rem) !important; }
       .heading { font-size: clamp(2rem, 3.5vw, 2.8rem); }
-      .fg-label { font-size: .85rem; }
-      .event-schedule-time { font-size: .85rem; }
-      .event-schedule-label { font-size: clamp(1.05rem, 1.8vw, 1.2rem); }
+      .fg-label { font-size: .9rem; }
+      .event-schedule-time { font-size: clamp(1rem, 1.5vw, 1.15rem); }
+      .event-schedule-label { font-size: clamp(1.15rem, 2vw, 1.35rem); }
+      .event-motorcade { font-size: clamp(1.05rem, 1.7vw, 1.2rem); }
+      .event-note { font-size: 1.05rem; }
+      .cal-btn { font-size: 12px; }
+      .cb-row span { font-size: clamp(1.15rem, 2vw, 1.3rem); }
     }
   </style>
 </head>
@@ -656,7 +660,7 @@
 
     
       <div class="scroll-hint fa" aria-hidden="true" style="margin-top:40px;">
-        <span style="font-family:'Jost',sans-serif; font-size:.75rem; letter-spacing:.15em; text-transform:uppercase; color:var(--text-3);">Scroll for details</span>
+        <span style="font-family:'Jost',sans-serif; font-size:.9rem; letter-spacing:.15em; text-transform:uppercase; color:var(--text-3);">Scroll for details</span>
         <span style="display:block; margin-top:8px; font-size:1.2rem; color:var(--gold); opacity:.5; animation: bobDown 2s ease-in-out infinite;">&#8595;</span>
       </div>
 
@@ -754,7 +758,7 @@
       <div class="label fa">Kindly Reply</div>
       <h2 class="heading fa">RSVP</h2>
 
-      <p class="tribute-body fa" style="text-align:left; max-width:100%; margin-bottom:34px; font-size:clamp(1.05rem,1.9vw,1.28rem);">
+      <p class="tribute-body fa" style="text-align:left; max-width:100%; margin-bottom:34px; font-size:clamp(1.15rem,2vw,1.35rem);">
         Your presence is a gift to our family. Please let us know you&rsquo;ll be joining us
         so we can plan accordingly.
       </p>
@@ -874,7 +878,7 @@
     <p class="footer-scripture" style="max-width:540px; margin:0 auto 18px; font-family:'Cormorant Garamond',Georgia,serif; font-size:clamp(1.15rem,2vw,1.35rem); font-style:italic; line-height:1.7; color:var(--text-2); text-align:center;">
       Finally, brothers and sisters, whatever is true, whatever is noble, whatever is right, whatever is pure, whatever is lovely, whatever is admirable &mdash; if anything is excellent or praiseworthy &mdash; think about such things.
     </p>
-    <p style="font-family:'Jost',sans-serif; font-size:.95rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); text-align:center; margin-bottom:28px;">
+    <p style="font-family:'Jost',sans-serif; font-size:clamp(1rem,1.6vw,1.1rem); letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); text-align:center; margin-bottom:28px;">
       Philippians 4:8&ndash;9
     </p>
     <a href="#top" class="footer-back" aria-label="Back to top" onclick="event.preventDefault(); document.querySelector('.right-panel')?.scrollTo({top:0,behavior:'smooth'}) || window.scrollTo({top:0,behavior:'smooth'})">&#8593; Back to top</a>
