@@ -104,7 +104,22 @@ function doPost(e) {
     /* ── Anti-spam: per-email rate limit (1 submission per hour) ───────────
        Scan existing rows for a matching email submitted in the last 60 min.
        Uses the UTC ISO timestamp stored in column 7 (index 6). */
-    if (isRateLimited_(String(data.email).trim().toLowerCase())) {
+    // Check if this email already has an RSVP (update vs new)
+    var emailLower = String(data.email).trim().toLowerCase();
+    var isUpdate = false;
+    var sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
+    if (sheet && sheet.getLastRow() > 1) {
+      var emails = sheet.getRange(2, 3, sheet.getLastRow() - 1, 1).getValues();
+      for (var i = 0; i < emails.length; i++) {
+        if (String(emails[i][0]).toLowerCase().trim() === emailLower) {
+          isUpdate = true;
+          break;
+        }
+      }
+    }
+
+    // Only rate-limit NEW submissions (not updates)
+    if (!isUpdate && isRateLimited_(emailLower)) {
       throw new Error(
         'It looks like we already received an RSVP from this email address ' +
         'recently. If you need to make a change, please reach out directly. ' +
