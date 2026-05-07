@@ -975,7 +975,7 @@
       return 'https://www.google.com/calendar/render?action=TEMPLATE'
         + '&text='     + encodeURIComponent(e.title)
         + '&dates='    + e.start + '/' + e.end
-        + '&location=' + encodeURIComponent(e.loc)
+        + '&location=' + encodeURIComponent(e.location)
         + '&details='  + encodeURIComponent(e.desc);
     }
 
@@ -989,7 +989,7 @@
         'DTSTART:'     + e.start,
         'DTEND:'       + e.end,
         'SUMMARY:'     + e.title,
-        'LOCATION:'    + e.loc,
+        'LOCATION:'    + e.location,
         'DESCRIPTION:' + e.desc,
         'END:VEVENT', 'END:VCALENDAR'
       ].join('\r\n');
