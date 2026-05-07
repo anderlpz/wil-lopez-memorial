@@ -19,8 +19,8 @@
       --ink-alt:      #1f1c19;
       --ink-deep:     #141210;
       --text:         #f0ebe2;
-      --text-2:       #a09590;
-      --text-3:       #6a6360;
+      --text-2:       #d0c9bc;  /* lifted — data legibility */
+      --text-3:       #aba49c;  /* lifted — passes WCAG AA */
       --gold:         #c4a97a;
       --gold-lt:      #d9c09a;
       --gold-20:      rgba(196,169,122,.20);
@@ -123,7 +123,7 @@
     .gate-subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; font-weight: 300;
-      font-size: clamp(.9rem,2vw,1.05rem);
+      font-size: clamp(1rem,2vw,1.15rem);
       color: var(--text-3);
       margin-bottom: 26px;
       position: relative; z-index: 1;
@@ -139,9 +139,9 @@
     .gate-label {
       display: block;
       font-family: 'Jost', sans-serif;
-      font-size: 8.5px; font-weight: 400;
-      letter-spacing: 3.5px; text-transform: uppercase;
-      color: var(--gold); opacity: .80;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); opacity: .90;
       margin-bottom: 9px;
       text-align: left;
       position: relative; z-index: 1;
@@ -168,7 +168,7 @@
       background: transparent;
       border: 1px solid var(--gold); border-radius: 2px;
       font-family: 'Jost', sans-serif;
-      font-size: 10px; font-weight: 400; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 11.5px; font-weight: 400; letter-spacing: 3.5px; text-transform: uppercase;
       color: var(--gold); cursor: pointer; overflow: hidden;
       transition: color .3s;
     }
@@ -185,7 +185,7 @@
       display: none; margin-top: 14px; padding: 10px 14px;
       background: var(--err); border: 1px solid var(--err-bdr); border-radius: 2px;
       font-family: 'Cormorant Garamond', serif;
-      font-size: .96rem; color: var(--err-txt); line-height: 1.5;
+      font-size: 1.08rem; color: var(--err-txt); line-height: 1.5;
       position: relative; z-index: 1;
     }
 
@@ -246,8 +246,8 @@
     .status-left {
       display: flex; align-items: center; gap: 9px;
       font-family: 'Jost', sans-serif;
-      font-size: 8.5px; font-weight: 400;
-      letter-spacing: 2.5px; text-transform: uppercase;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 2px; text-transform: uppercase;
       color: var(--text-3);
     }
     .status-dot {
@@ -270,8 +270,8 @@
       border: 1px solid var(--gold-20); border-radius: 2px;
       background: transparent;
       font-family: 'Jost', sans-serif;
-      font-size: 8.5px; font-weight: 400;
-      letter-spacing: 3px; text-transform: uppercase;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--text-3); cursor: pointer;
       transition: border-color .2s, color .2s, background .2s;
     }
@@ -317,9 +317,9 @@
 
     .card-label {
       font-family: 'Jost', sans-serif;
-      font-size: 8px; font-weight: 400;
-      letter-spacing: 3.5px; text-transform: uppercase;
-      color: var(--gold); opacity: .68;
+      font-size: 10.5px; font-weight: 400;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); opacity: .88;
       margin-bottom: 14px;
       line-height: 1.45;
       position: relative; z-index: 1;
@@ -336,7 +336,7 @@
     .card-sub {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; font-weight: 300;
-      font-size: clamp(.76rem,1.3vw,.9rem);
+      font-size: clamp(1rem,1.5vw,1.12rem);
       color: var(--text-3); line-height: 1.4;
       position: relative; z-index: 1;
     }
@@ -378,7 +378,7 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-text {
       font-family: 'Jost', sans-serif;
-      font-size: 8.5px; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
       color: var(--text-3);
     }
 
@@ -417,8 +417,8 @@
     }
     .error-detail {
       font-family: 'Jost', sans-serif;
-      font-size: 7.5px; letter-spacing: 1px;
-      color: var(--err-txt); opacity: .5;
+      font-size: 10.5px; letter-spacing: 1px;
+      color: var(--err-txt); opacity: .65;
       margin-bottom: 22px; word-break: break-all;
       position: relative; z-index: 1;
     }
@@ -428,8 +428,8 @@
       background: transparent;
       border: 1px solid var(--gold); border-radius: 2px;
       font-family: 'Jost', sans-serif;
-      font-size: 9.5px; font-weight: 400;
-      letter-spacing: 4px; text-transform: uppercase;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 3.5px; text-transform: uppercase;
       color: var(--gold); cursor: pointer; overflow: hidden;
       transition: color .3s;
       z-index: 1;
@@ -468,7 +468,7 @@
     .table-count {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic; font-weight: 300;
-      font-size: .88rem; color: var(--text-3);
+      font-size: 1.05rem; color: var(--text-3);
       margin-left: 8px;
     }
 
@@ -478,8 +478,8 @@
       border: 1px solid var(--gold-20); border-radius: 2px;
       background: transparent;
       font-family: 'Jost', sans-serif;
-      font-size: 8.5px; font-weight: 400;
-      letter-spacing: 3px; text-transform: uppercase;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--text-3); cursor: pointer;
       transition: border-color .2s, color .2s, background .2s;
     }
@@ -503,9 +503,9 @@
     thead th {
       padding: 11px clamp(12px,2vw,20px);
       font-family: 'Jost', sans-serif;
-      font-size: 8px; font-weight: 400;
-      letter-spacing: 3.5px; text-transform: uppercase;
-      color: var(--gold); opacity: .68;
+      font-size: 10.5px; font-weight: 400;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); opacity: .88;
       text-align: left; white-space: nowrap;
       border-bottom: 1px solid var(--gold-12);
       background: var(--ink-alt);
@@ -536,7 +536,7 @@
       padding: 14px clamp(12px,2vw,20px);
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(.96rem,1.6vw,1.06rem);
+      font-size: clamp(1.15rem,2vw,1.3rem);
       color: var(--text-2);
       vertical-align: top;
       line-height: 1.45;
@@ -556,7 +556,7 @@
 
     .td-guests {
       font-family: 'Jost', sans-serif;
-      font-weight: 300; font-size: .9rem; letter-spacing: .04em;
+      font-weight: 300; font-size: clamp(1.1rem,1.8vw,1.25rem); letter-spacing: .04em;
       text-align: center;
     }
 
@@ -567,16 +567,16 @@
       padding: 2px 8px;
       border: 1px solid var(--gold-20); border-radius: 1px;
       font-family: 'Jost', sans-serif;
-      font-size: 7px; font-weight: 400;
+      font-size: 10px; font-weight: 400;
       letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); opacity: .75;
+      color: var(--gold); opacity: 1;
       white-space: nowrap;
     }
 
     .td-message {
       max-width: 250px;
       font-style: italic;
-      font-size: clamp(.88rem,1.5vw,.98rem) !important;
+      font-size: clamp(1.05rem,1.7vw,1.2rem) !important;
     }
     .msg-text {
       display: -webkit-box;
@@ -588,7 +588,7 @@
 
     .td-timestamp {
       font-family: 'Jost', sans-serif;
-      font-size: .76rem; letter-spacing: .02em;
+      font-size: clamp(.9rem,1.4vw,1.05rem); letter-spacing: .02em;
       color: var(--text-3);
       white-space: nowrap;
     }
