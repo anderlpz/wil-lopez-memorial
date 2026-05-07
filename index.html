@@ -892,7 +892,7 @@
        Type: Web App | Execute as: Me | Access: Anyone
     ═══════════════════════════════════════════════════════ */
     window._pageLoadTime = Date.now();
-    const RSVP_ENDPOINT = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+    const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxYG5Xc5S1aLlZ07laNKGDTis762Mc3RldSBkyDSyoIFDKy-lrawdIA0l_Yzg0rEEoiqQ/exec';
 
     /* ── HERO PHOTO ──────────────────────────────────────── */
     document.getElementById('heroBg').style.backgroundImage =
@@ -1032,7 +1032,7 @@
       var errorEl = document.getElementById('rsvpError');
 
       /* Endpoint not configured? */
-      if (!RSVP_ENDPOINT || RSVP_ENDPOINT === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      if (!RSVP_ENDPOINT || RSVP_ENDPOINT === 'https://script.google.com/macros/s/AKfycbxYG5Xc5S1aLlZ07laNKGDTis762Mc3RldSBkyDSyoIFDKy-lrawdIA0l_Yzg0rEEoiqQ/exec') {
         errorEl.innerHTML =
           'The RSVP system is not yet configured by the site administrator. '
           + 'Please reach out to the family directly to let them know you\u2019ll be attending.';
