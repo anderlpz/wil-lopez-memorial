@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
 
   <style>
-    /* ── RESET ──────────────────────────────────────────────── */
+    /* ── RESET ──────────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── DESIGN TOKENS (exact match to rsvp.html) ───────────── */
+    /* ── DESIGN TOKENS (exact match to rsvp.html) ──────────────────────────── */
     :root {
       --ink:          #1a1714;
       --ink-alt:      #1f1c19;
@@ -36,7 +36,7 @@
       --err-txt:      #c8796a;
     }
 
-    /* ── BASE ───────────────────────────────────────────────── */
+    /* ── BASE ───────────────────────────────────────────────────────────────── */
     html { background: var(--ink); }
     body {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -48,7 +48,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── AMBIENT GLOW (from rsvp.html) ─────────────────────── */
+    /* ── AMBIENT GLOW (from rsvp.html) ─────────────────────────────────────── */
     .ambient {
       position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
@@ -56,7 +56,7 @@
         radial-gradient(ellipse  80% 45% at 50% 100%, rgba( 70,45,20,.09) 0%, transparent 70%);
     }
 
-    /* ── GRAIN TEXTURE (from rsvp.html) ────────────────────── */
+    /* ── GRAIN TEXTURE (from rsvp.html) ────────────────────────────────────── */
     .grain {
       position: fixed; inset: 0; pointer-events: none; z-index: 9999;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23n)' opacity='.038'/%3E%3C/svg%3E");
@@ -65,9 +65,9 @@
     }
 
 
-    /* ══════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        PASSWORD GATE
-    ══════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     .gate-overlay {
       position: fixed; inset: 0; z-index: 1000;
       display: flex; align-items: center; justify-content: center;
@@ -190,9 +190,9 @@
     }
 
 
-    /* ══════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        DASHBOARD SHELL
-    ══════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     .dashboard {
       max-width: 1280px;
       margin: 0 auto;
@@ -200,7 +200,7 @@
       position: relative; z-index: 1;
     }
 
-    /* ── HEADER ─────────────────────────────────────────────── */
+    /* ── HEADER ─────────────────────────────────────────────────────────────── */
     .dash-header {
       text-align: center;
       padding-bottom: clamp(32px,4.5vw,48px);
@@ -237,7 +237,7 @@
       color: var(--text-3);
     }
 
-    /* ── STATUS BAR ─────────────────────────────────────────── */
+    /* ── STATUS BAR ─────────────────────────────────────────────────────────── */
     .dash-status {
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 10px;
@@ -281,9 +281,9 @@
     .refresh-btn:disabled { opacity: .30; cursor: default; }
 
 
-    /* ══════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        SUMMARY CARDS
-    ══════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     .summary-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -355,9 +355,9 @@
     .skel-sub { width: 78%; height: .85rem; }
 
 
-    /* ══════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        STATE CONTAINERS
-    ══════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     .state-loading,
     .state-error,
     .state-content { display: none; }
@@ -365,7 +365,7 @@
     .state-error.on,
     .state-content.on { display: block; }
 
-    /* ── Loading ────────────────────────────────────────────── */
+    /* ── Loading ─────────────────────────────────────────────────────────────── */
     .loading-inner { text-align: center; padding: 68px 24px; }
     .spinner {
       width: 36px; height: 36px;
@@ -382,7 +382,7 @@
       color: var(--text-3);
     }
 
-    /* ── Error ──────────────────────────────────────────────── */
+    /* ── Error ───────────────────────────────────────────────────────────────── */
     .error-inner { text-align: center; padding: 16px 0 52px; }
     .error-card {
       max-width: 500px; margin: 0 auto;
@@ -444,9 +444,9 @@
     .retry-btn-label { position: relative; z-index: 2; }
 
 
-    /* ══════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        TABLE SECTION
-    ══════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     .table-section {
       background: var(--ink-alt);
       border: 1px solid var(--gold-12); border-radius: 3px;
@@ -489,17 +489,17 @@
     .export-btn:disabled { opacity: .28; cursor: default; }
     .export-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
 
-    /* ── Table wrap ─────────────────────────────────────────── */
+    /* ── Table wrap ──────────────────────────────────────────────────────────── */
     .table-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
     table {
-      width: 100%; min-width: 700px;
+      width: 100%; min-width: 760px;
       border-collapse: collapse;
     }
 
-    /* ── Table head ─────────────────────────────────────────── */
+    /* ── Table head ──────────────────────────────────────────────────────────── */
     thead th {
       padding: 11px clamp(12px,2vw,20px);
       font-family: 'Jost', sans-serif;
@@ -515,6 +515,16 @@
     thead th:hover   { opacity: 1; }
     thead th.sorted  { opacity: 1; color: var(--gold-lt); }
 
+    /* Actions column header — not sortable */
+    thead th.th-actions {
+      cursor: default;
+      pointer-events: none;
+      text-align: right;
+      padding-right: clamp(12px,2vw,20px);
+      width: 1%;
+    }
+    thead th.th-actions:hover { opacity: .88; }
+
     .sort-arrow {
       display: inline-block; margin-left: 5px;
       font-size: 7px; vertical-align: middle;
@@ -522,7 +532,7 @@
     }
     thead th.sorted .sort-arrow { opacity: .85; }
 
-    /* ── Table body ─────────────────────────────────────────── */
+    /* ── Table body ──────────────────────────────────────────────────────────── */
     tbody tr {
       border-bottom: 1px solid rgba(196,169,122,.065);
       transition: background .12s;
@@ -602,7 +612,160 @@
     }
 
 
-    /* ── FOOTER ─────────────────────────────────────────────── */
+    /* ══════════════════════════════════════════════════════════════════════════
+       ACTION COLUMN — edit · delete
+    ══════════════════════════════════════════════════════════════════════════ */
+    .td-actions {
+      white-space: nowrap;
+      text-align: right;
+      vertical-align: middle;
+      padding-right: clamp(12px,2vw,20px);
+      width: 1%;
+    }
+
+    /* Base action button */
+    .action-btn {
+      display: inline-flex; align-items: center;
+      padding: 3px 9px;
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; line-height: 1.65;
+      transition: border-color .18s, color .18s, background .18s;
+    }
+    .action-btn:disabled { opacity: .35; cursor: default; pointer-events: none; }
+
+    /* Edit */
+    .btn-edit {
+      background: transparent;
+      border: 1px solid var(--gold-20);
+      color: var(--text-3);
+    }
+    .btn-edit:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-08);
+    }
+
+    /* Delete */
+    .btn-delete {
+      background: transparent;
+      border: 1px solid rgba(175,70,55,.15);
+      color: rgba(200,121,106,.45);
+      margin-left: 5px;
+    }
+    .btn-delete:hover {
+      border-color: var(--err-bdr);
+      color: var(--err-txt);
+      background: var(--err);
+    }
+
+    /* Save / Cancel */
+    .btn-save {
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+    }
+    .btn-save:hover { background: var(--gold); color: var(--ink); }
+
+    .btn-cancel {
+      background: transparent;
+      border: 1px solid var(--gold-20);
+      color: var(--text-3);
+      margin-left: 5px;
+    }
+    .btn-cancel:hover { border-color: rgba(196,169,122,.35); color: var(--text-2); }
+
+    /* Delete confirmation */
+    .btn-confirm-yes {
+      background: var(--err);
+      border: 1px solid var(--err-bdr);
+      color: var(--err-txt);
+    }
+    .btn-confirm-yes:hover { background: rgba(175,70,55,.22); border-color: rgba(175,70,55,.38); }
+
+    .btn-confirm-no {
+      background: transparent;
+      border: 1px solid var(--gold-20);
+      color: var(--text-3);
+      margin-left: 4px;
+    }
+    .btn-confirm-no:hover { border-color: rgba(196,169,122,.35); color: var(--text-2); }
+
+    /* Delete confirm layout */
+    .delete-confirm-wrap {
+      display: inline-flex; align-items: center; gap: 6px;
+      white-space: nowrap;
+    }
+    .confirm-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: .88rem;
+      color: var(--err-txt); opacity: .85;
+    }
+
+    /* ── Inline edit inputs ──────────────────────────────────────────────────── */
+    .edit-input {
+      width: 100%; min-width: 72px;
+      background: rgba(255,251,245,.05);
+      border: 1px solid var(--gold-20);
+      border-radius: 2px;
+      color: var(--text);
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(.95rem,1.6vw,1.1rem);
+      padding: 5px 8px;
+      outline: none;
+      transition: border-color .18s, background .18s;
+    }
+    .edit-input:focus {
+      border-color: rgba(196,169,122,.5);
+      background: rgba(255,251,245,.07);
+    }
+    .edit-input-num { max-width: 56px; text-align: center; }
+    textarea.edit-input { resize: vertical; min-height: 48px; }
+
+    /* Event checkboxes in edit mode */
+    .edit-events { display: flex; flex-wrap: wrap; gap: 5px; }
+    .edit-event-label {
+      display: inline-flex; align-items: center; gap: 5px;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 9.5px; font-weight: 400;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--text-3);
+      padding: 3px 8px;
+      border: 1px solid var(--gold-20); border-radius: 1px;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+    /* :has() — progressively enhanced, falls back gracefully */
+    .edit-event-label:has(input:checked) {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gold-08);
+    }
+    .edit-event-label input[type="checkbox"] { display: none; }
+
+    /* ── Deleted rows ────────────────────────────────────────────────────────── */
+    tbody tr.row-deleted { opacity: .22; pointer-events: none; }
+    tbody tr.row-deleted td {
+      text-decoration: line-through;
+      text-decoration-color: rgba(196,169,122,.22);
+    }
+
+    /* ── Sheets note (below table) ──────────────────────────────────────────── */
+    .sheets-note {
+      display: none;
+      padding: 11px clamp(18px,3vw,28px);
+      border-top: 1px solid var(--err-bdr);
+      background: rgba(175,70,55,.06);
+      font-family: 'Jost', sans-serif;
+      font-size: 10.5px; letter-spacing: 1.5px;
+      color: var(--err-txt); line-height: 1.6;
+    }
+    .sheets-note.visible { display: block; }
+
+
+    /* ── FOOTER ─────────────────────────────────────────────────────────────── */
     .dash-footer {
       margin-top: clamp(52px,7vw,80px);
       padding-top: clamp(28px,4vw,40px);
@@ -622,7 +785,7 @@
       color: var(--text-3); opacity: .40;
     }
 
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    /* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
     @media (max-width: 960px) {
       .summary-grid { grid-template-columns: repeat(3, 1fr); }
     }
@@ -637,7 +800,7 @@
   <div class="ambient" aria-hidden="true"></div>
   <div class="grain"   aria-hidden="true"></div>
 
-  <!-- ═══════════════════════════════ PASSWORD GATE ══════════════════════════ -->
+  <!-- ══════════════════════════ PASSWORD GATE ══════════════════════════════ -->
   <div class="gate-overlay" id="gateOverlay"
        role="dialog" aria-label="Authentication required" aria-modal="true">
     <div class="gate-card">
@@ -666,7 +829,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════ DASHBOARD ══════════════════════════════ -->
+  <!-- ═══════════════════════════ DASHBOARD ════════════════════════════════ -->
   <div class="dashboard" id="dashboard" style="display:none;" aria-live="polite">
 
     <!-- Header -->
@@ -781,6 +944,9 @@
                 <th data-col="timestamp" tabindex="0" aria-sort="none">
                   Submitted <span class="sort-arrow" aria-hidden="true">&#9650;</span>
                 </th>
+                <th class="th-actions" aria-label="Actions">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody id="guestBody">
@@ -788,6 +954,8 @@
             </tbody>
           </table>
         </div>
+        <!-- Shown when rows are locally marked removed -->
+        <div class="sheets-note" id="sheetsNote"></div>
       </div>
     </div><!-- /state-content -->
 
@@ -804,16 +972,16 @@
 
 
   <script>
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        CONFIGURATION — replace these two values with your deployed URLs
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     const DASHBOARD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxYG5Xc5S1aLlZ07laNKGDTis762Mc3RldSBkyDSyoIFDKy-lrawdIA0l_Yzg0rEEoiqQ/exec';
     const DASHBOARD_KEY      = 'UUfXbX*2PDGzYpBRy-Pxc';
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        PASSWORD GATE
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     (function () {
       const PASS    = 'wil2026';
       const SK_KEY  = 'col_dash_auth_v1';
@@ -852,9 +1020,9 @@
     })();
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        DASHBOARD STATE
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     var _data      = null;   // last successful payload
     var _sortCol   = 'name';
     var _sortDir   = 'asc';
@@ -869,7 +1037,7 @@
       return EVENT_LABELS[ev] || ev.slice(0, 22);
     }
 
-    /* ── State visibility ─────────────────────────────────────────── */
+    /* ── State visibility ───────────────────────────────────────────────────── */
     function showState(name) {
       document.getElementById('stateLoading').classList.toggle('on', name === 'loading');
       document.getElementById('stateError'  ).classList.toggle('on', name === 'error');
@@ -882,7 +1050,7 @@
       document.getElementById('refreshBtn').disabled = live;
     }
 
-    /* ── Init ─────────────────────────────────────────────────────── */
+    /* ── Init ───────────────────────────────────────────────────────────────── */
     function initDashboard() {
       // Wire controls
       document.getElementById('refreshBtn').addEventListener('click', () => {
@@ -905,15 +1073,18 @@
       });
       updateSortUI();
 
+      // Row action delegation — single listener on <tbody> handles all edit/delete actions
+      document.getElementById('guestBody').addEventListener('click', handleRowAction);
+
       // First load + auto-refresh every 30 s
       fetchData();
       _autoTimer = setInterval(() => fetchData(true), 30_000);
     }
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        DATA FETCH
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     async function fetchData(silent = false) {
       setStatus('Updating\u2026', true);
       if (!silent) showState('loading');
@@ -939,8 +1110,8 @@
 
         /* Flatten summary into root for renderCards compatibility */
         if (json.summary) {
-          json.total_rsvps       = json.summary.total_rsvps || 0;
-          json.total_guests      = json.summary.total_guests || 0;
+          json.total_rsvps  = json.summary.total_rsvps  || 0;
+          json.total_guests = json.summary.total_guests || 0;
         }
         /* Recount events client-side from actual RSVP data (more accurate) */
         var cer = 0, cel = 0;
@@ -981,9 +1152,9 @@
     }
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        RENDER
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     function renderDashboard(data) {
       renderCards(data);
       renderTable(data.rsvps || []);
@@ -993,7 +1164,7 @@
         '\u2014\u00a0' + n + '\u00a0' + (n === 1 ? 'submission' : 'submissions');
     }
 
-    /* ── Summary cards ────────────────────────────────────────────── */
+    /* ── Summary cards ──────────────────────────────────────────────────────── */
     function renderCards(data) {
       const g      = Number(data.total_guests) || 0;
       const donuts = Math.ceil(g * 1.25);
@@ -1001,31 +1172,12 @@
       const cost   = dozens * 9;
 
       const cards = [
-        {
-          label: 'Total RSVPs',
-          value: data.total_rsvps || 0,
-          sub:   'submissions',
-        },
-        {
-          label: 'Total Guests',
-          value: g,
-          sub:   'attending in all',
-        },
-        {
-          label: 'Military Honors',
-          value: data.ceremony_count || 0,
-          sub:   'Riverside Cemetery',
-        },
-        {
-          label: 'Celebration of Life',
-          value: data.celebration_count || 0,
-          sub:   'Calvary Chapel',
-        },
-        {
-          label: 'Donuts Needed',
-          value: donuts,
-          sub:   donuts + ' donuts \u00b7 ' + dozens + ' dozen \u00b7 ~$' + cost,
-        },
+        { label: 'Total RSVPs',       value: data.total_rsvps || 0,       sub: 'submissions'        },
+        { label: 'Total Guests',      value: g,                            sub: 'attending in all'   },
+        { label: 'Military Honors',   value: data.ceremony_count || 0,     sub: 'Riverside Cemetery' },
+        { label: 'Celebration of Life', value: data.celebration_count || 0, sub: 'Calvary Chapel'   },
+        { label: 'Donuts Needed',     value: donuts,
+          sub: donuts + ' donuts \u00b7 ' + dozens + ' dozen \u00b7 ~$' + cost },
       ];
 
       document.getElementById('summaryGrid').innerHTML = cards.map(c => `
@@ -1037,30 +1189,48 @@
       `).join('');
     }
 
-    /* ── Table ────────────────────────────────────────────────────── */
+    /* ── Table ──────────────────────────────────────────────────────────────── */
+    /*
+     * Field mapping from real API response:
+     *   name         → r.name
+     *   email        → r.email
+     *   guests       → r.guests
+     *   events       → r.events  (comma-separated string OR array in mock data)
+     *   message      → r.message
+     *   submitted_pt → human-readable PT timestamp   e.g. "2026-05-07 13:49:18 PT"
+     *   submitted_at → ISO timestamp                 e.g. "2026-05-07T20:49:16.139Z"
+     */
     function renderTable(rows) {
-      const sorted = sortRows(rows.slice());
-      const tbody  = document.getElementById('guestBody');
+      const deleted = getDeletedEmails();
+      const sorted  = sortRows(rows.slice());
+      const tbody   = document.getElementById('guestBody');
 
       if (!sorted.length) {
         tbody.innerHTML =
-          '<tr class="no-data-row"><td colspan="6">No RSVPs have been received yet.</td></tr>';
+          '<tr class="no-data-row"><td colspan="7">No RSVPs have been received yet.</td></tr>';
+        updateSheetsNote(0);
         return;
       }
 
       tbody.innerHTML = sorted.map(r => {
-        const evts  = Array.isArray(r.events)
+        const emailKey  = (r.email || '').toLowerCase().trim();
+        const isDeleted = deleted.includes(emailKey);
+
+        // Events: handle both comma-separated string (real API) and array (mock data)
+        const evts = Array.isArray(r.events)
           ? r.events
-          : (r.events ? [r.events] : []);
+          : (r.events ? r.events.split(',').map(e => e.trim()).filter(Boolean) : []);
 
         const pills = evts
           .map(e => `<span class="pill">${esc(eventLabel(e))}</span>`)
           .join('');
 
-        const ts     = r.timestamp ? fmtDate(r.timestamp) : '\u2014';
+        // Timestamp: prefer submitted_pt (already human-readable PT), fall back
+        const rawTs  = r.submitted_pt || r.submitted_at || r.timestamp;
+        const ts     = rawTs ? fmtTs(rawTs) : '\u2014';
         const hasMsg = r.message && r.message.trim().length > 0;
 
-        return `<tr>
+        return `<tr class="rsvp-row${isDeleted ? ' row-deleted' : ''}" data-email="${esc(emailKey)}">
           <td class="td-name">${esc(r.name || '\u2014')}</td>
           <td class="td-email">
             <a href="mailto:${esc(r.email || '')}" target="_blank" rel="noopener noreferrer">
@@ -1079,15 +1249,30 @@
               : `<span style="font-style:italic;opacity:.3;">\u2014</span>`}
           </td>
           <td class="td-timestamp">${ts}</td>
+          <td class="td-actions">
+            ${isDeleted
+              ? `<span style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;
+                             text-transform:uppercase;color:var(--err-txt);opacity:.5;">Removed</span>`
+              : `<button class="action-btn btn-edit"   type="button"
+                         data-action="edit"   title="Edit this RSVP">Edit</button><button class="action-btn btn-delete" type="button"
+                         data-action="delete" title="Remove this RSVP">\u2715</button>`}
+          </td>
         </tr>`;
       }).join('');
+
+      // Show sheets note only for emails that appear in the current dataset
+      const deletedInView = deleted.filter(e =>
+        sorted.some(r => (r.email || '').toLowerCase().trim() === e)
+      ).length;
+      updateSheetsNote(deletedInView);
     }
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        SORT
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     function handleSort(col) {
+      if (!col) return; // guard: Actions column carries no data-col
       if (_sortCol === col) {
         _sortDir = _sortDir === 'asc' ? 'desc' : 'asc';
       } else {
@@ -1135,8 +1320,9 @@
             bv = (b.message || '').toLowerCase();
             break;
           case 'timestamp':
-            av = a.timestamp || '';
-            bv = b.timestamp || '';
+            // Use ISO submitted_at for reliable chronological sort
+            av = a.submitted_at || a.submitted_pt || a.timestamp || '';
+            bv = b.submitted_at || b.submitted_pt || b.timestamp || '';
             break;
           default: av = ''; bv = '';
         }
@@ -1149,20 +1335,208 @@
     }
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
+       ROW ACTIONS — edit · delete
+    ══════════════════════════════════════════════════════════════════════════ */
+
+    /* Single event-delegation hub — one listener on <tbody> handles everything */
+    function handleRowAction(e) {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const tr = btn.closest('tr.rsvp-row');
+      if (!tr)  return;
+      const email = tr.dataset.email;
+
+      switch (btn.dataset.action) {
+        case 'edit':        startEdit(tr, email);           break;
+        case 'delete':      showDeleteConfirm(tr, email);   break;
+        case 'save':        saveEdit(tr, email);            break;
+        case 'cancel':      renderTable(_data.rsvps || []); break;
+        case 'confirm-yes': executeDelete(tr, email);       break;
+        case 'confirm-no':  renderTable(_data.rsvps || []); break;
+      }
+    }
+
+    /* ── Start inline edit ──────────────────────────────────────────────────── */
+    function startEdit(tr, email) {
+      if (tr.classList.contains('editing-row')) return;
+      const rsvp = (_data.rsvps || []).find(r =>
+        (r.email || '').toLowerCase().trim() === email
+      );
+      if (!rsvp) return;
+
+      // Parse events from either array or comma-string
+      const evts = Array.isArray(rsvp.events)
+        ? rsvp.events
+        : (rsvp.events ? rsvp.events.split(',').map(e => e.trim()).filter(Boolean) : []);
+
+      const hasCeremony = evts.some(e =>
+        e.toLowerCase().includes('military') || e.toLowerCase().includes('ceremony')
+      );
+      const hasMemorial = evts.some(e =>
+        e.toLowerCase().includes('memorial') || e.toLowerCase().includes('service') ||
+        e.toLowerCase().includes('celebration')
+      );
+
+      const rawTs = rsvp.submitted_pt || rsvp.submitted_at || rsvp.timestamp;
+
+      tr.classList.add('editing-row');
+      tr.innerHTML = `
+        <td class="td-name">
+          <input class="edit-input" data-field="name"
+                 value="${esc(rsvp.name || '')}" placeholder="Full name">
+        </td>
+        <td class="td-email" style="font-family:'Jost',sans-serif;font-size:10.5px;
+            letter-spacing:1px;color:var(--text-3);vertical-align:middle;">
+          ${esc(rsvp.email || '')}
+        </td>
+        <td class="td-guests">
+          <input class="edit-input edit-input-num" type="number"
+                 data-field="guests" min="1" max="99"
+                 value="${esc(String(rsvp.guests != null ? rsvp.guests : 1))}">
+        </td>
+        <td class="td-events">
+          <div class="edit-events">
+            <label class="edit-event-label">
+              <input type="checkbox" data-field="event-ceremony" ${hasCeremony ? 'checked' : ''}>
+              Military Honors
+            </label>
+            <label class="edit-event-label">
+              <input type="checkbox" data-field="event-memorial" ${hasMemorial ? 'checked' : ''}>
+              Celebration
+            </label>
+          </div>
+        </td>
+        <td class="td-message">
+          <textarea class="edit-input" data-field="message"
+                    rows="2" placeholder="Optional note">${esc(rsvp.message || '')}</textarea>
+        </td>
+        <td class="td-timestamp" style="font-family:'Jost',sans-serif;font-size:.8rem;
+            color:var(--text-3);opacity:.45;white-space:nowrap;vertical-align:middle;">
+          ${rawTs ? fmtTs(rawTs) : '\u2014'}
+        </td>
+        <td class="td-actions" style="vertical-align:middle;">
+          <button class="action-btn btn-save"   type="button"
+                  data-action="save"   title="Save changes">Save</button>
+          <button class="action-btn btn-cancel" type="button"
+                  data-action="cancel" title="Cancel">Cancel</button>
+        </td>`;
+    }
+
+    /* ── Save edit ──────────────────────────────────────────────────────────── */
+    /*
+     * Posts as a regular RSVP upsert — Apps Script matches by email and updates the row.
+     * Uses mode: 'no-cors' to avoid CORS preflight issues with Apps Script web apps.
+     * Response is opaque; local data is updated optimistically.
+     */
+    async function saveEdit(tr, email) {
+      const rsvp = (_data.rsvps || []).find(r =>
+        (r.email || '').toLowerCase().trim() === email
+      );
+      if (!rsvp) return;
+
+      const nameInput   = tr.querySelector('[data-field="name"]');
+      const guestsInput = tr.querySelector('[data-field="guests"]');
+      const msgInput    = tr.querySelector('[data-field="message"]');
+      const cbCeremony  = tr.querySelector('[data-field="event-ceremony"]');
+      const cbMemorial  = tr.querySelector('[data-field="event-memorial"]');
+
+      const evts = [];
+      if (cbCeremony && cbCeremony.checked) evts.push('Military Honors Ceremony');
+      if (cbMemorial && cbMemorial.checked)  evts.push('Memorial Service');
+
+      const updated = {
+        name:    (nameInput  ? nameInput.value.trim()  : '') || rsvp.name,
+        email:   rsvp.email,  // read-only — the upsert key
+        guests:  parseInt(guestsInput ? guestsInput.value : rsvp.guests, 10) || Number(rsvp.guests) || 1,
+        events:  evts.join(', '),
+        message: msgInput ? msgInput.value.trim() : '',
+      };
+
+      // Show saving state
+      const saveBtn = tr.querySelector('[data-action="save"]');
+      if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Saving\u2026'; }
+
+      // POST to Apps Script (fire-and-forget; no-cors avoids preflight)
+      try {
+        await fetch(DASHBOARD_ENDPOINT, {
+          method:  'POST',
+          mode:    'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body:    JSON.stringify({ action: 'rsvp', ...updated }),
+        });
+      } catch (_) { /* no-cors fetch always resolves; swallow any network error */ }
+
+      // Update local data and re-render optimistically
+      Object.assign(rsvp, updated);
+      renderTable(_data.rsvps || []);
+    }
+
+    /* ── Delete confirmation ────────────────────────────────────────────────── */
+    function showDeleteConfirm(tr, email) {
+      const actionsCell = tr.querySelector('.td-actions');
+      if (!actionsCell) return;
+      actionsCell.innerHTML = `
+        <div class="delete-confirm-wrap">
+          <span class="confirm-label">Remove this RSVP?</span>
+          <button class="action-btn btn-confirm-yes" type="button"
+                  data-action="confirm-yes" title="Yes, remove">Yes</button>
+          <button class="action-btn btn-confirm-no"  type="button"
+                  data-action="confirm-no"  title="Cancel">No</button>
+        </div>`;
+    }
+
+    /* ── Execute delete ─────────────────────────────────────────────────────── */
+    /*
+     * Stores deletion in localStorage. Row is visually marked "Removed."
+     * A note below the table reminds the user to delete the row from Google Sheets.
+     */
+    function executeDelete(tr, email) {
+      const deleted = getDeletedEmails();
+      if (!deleted.includes(email)) {
+        deleted.push(email);
+        try { localStorage.setItem('col_deleted_rsvps', JSON.stringify(deleted)); } catch (_) {}
+      }
+      renderTable(_data.rsvps || []);
+    }
+
+    /* ── localStorage helpers ───────────────────────────────────────────────── */
+    function getDeletedEmails() {
+      try {
+        const raw = localStorage.getItem('col_deleted_rsvps');
+        return raw ? JSON.parse(raw) : [];
+      } catch (_) { return []; }
+    }
+
+    function updateSheetsNote(deletedCount) {
+      const el = document.getElementById('sheetsNote');
+      if (!el) return;
+      if (deletedCount > 0) {
+        el.textContent =
+          deletedCount + (deletedCount === 1 ? ' RSVP' : ' RSVPs') +
+          ' marked for removal \u2014 to permanently delete, remove ' +
+          (deletedCount === 1 ? 'this row' : 'these rows') + ' from Google Sheets.';
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    }
+
+
+    /* ══════════════════════════════════════════════════════════════════════════
        CSV EXPORT
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     function exportCSV() {
       if (!_data || !(_data.rsvps || []).length) return;
 
       const headers = ['Name', 'Email', 'Guests', 'Events', 'Message', 'Submitted'];
       const dataRows = sortRows(_data.rsvps.slice()).map(r => [
-        r.name     || '',
-        r.email    || '',
-        r.guests   != null ? r.guests : '',
+        r.name   || '',
+        r.email  || '',
+        r.guests != null ? r.guests : '',
         Array.isArray(r.events) ? r.events.join('; ') : (r.events || ''),
-        r.message  || '',
-        r.timestamp ? fmtDate(r.timestamp) : '',
+        r.message || '',
+        r.submitted_pt || r.submitted_at || r.timestamp || '',
       ]);
 
       const csv = [headers, ...dataRows]
@@ -1187,9 +1561,9 @@
     }
 
 
-    /* ═══════════════════════════════════════════════════════════════════
+    /* ══════════════════════════════════════════════════════════════════════════
        UTILITIES
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     function esc(s) {
       return String(s)
         .replace(/&/g,  '&amp;')
@@ -1199,6 +1573,7 @@
         .replace(/'/g,  '&#39;');
     }
 
+    /* Generic ISO date formatter (for mock data / submitted_at field) */
     function fmtDate(ts) {
       try {
         const d = new Date(ts);
@@ -1210,12 +1585,39 @@
       } catch (_) { return ts || '\u2014'; }
     }
 
+    /*
+     * Smart timestamp formatter — handles all three formats:
+     *   "2026-05-07 13:49:18 PT"   → submitted_pt  (real API)
+     *   "2026-05-07T20:49:16.139Z" → submitted_at  (real API)
+     *   "2026-05-05T14:22:00Z"     → timestamp     (mock data)
+     */
+    function fmtTs(rawTs) {
+      if (!rawTs) return '\u2014';
+      // submitted_pt: "2026-05-07 13:49:18 PT"
+      if (typeof rawTs === 'string' && rawTs.trim().endsWith(' PT')) {
+        try {
+          // Replace space separator with T for consistent ISO parsing
+          const iso = rawTs.trim().slice(0, -3).trim().replace(' ', 'T');
+          const d   = new Date(iso);
+          if (!isNaN(d.getTime())) {
+            return d.toLocaleDateString('en-US', {
+              month: 'short', day: 'numeric', year: 'numeric',
+            }) + '\u00a0\u00b7\u00a0' + d.toLocaleTimeString('en-US', {
+              hour: 'numeric', minute: '2-digit',
+            }) + '\u00a0PT';
+          }
+        } catch (_) {}
+        return rawTs; // fallback: display as-is
+      }
+      return fmtDate(rawTs);
+    }
 
-    /* ═══════════════════════════════════════════════════════════════════
+
+    /* ══════════════════════════════════════════════════════════════════════════
        MOCK DATA
        Shown whenever DASHBOARD_ENDPOINT is still the placeholder string,
        so you can see the full layout before wiring up the real backend.
-    ═══════════════════════════════════════════════════════════════════ */
+    ══════════════════════════════════════════════════════════════════════════ */
     function mockData() {
       return {
         total_rsvps:        14,
