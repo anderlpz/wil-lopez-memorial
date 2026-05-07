@@ -1036,7 +1036,7 @@
       var errorEl = document.getElementById('rsvpError');
 
       /* Endpoint not configured? */
-      if (!RSVP_ENDPOINT || RSVP_ENDPOINT === 'https://script.google.com/macros/s/AKfycbxYG5Xc5S1aLlZ07laNKGDTis762Mc3RldSBkyDSyoIFDKy-lrawdIA0l_Yzg0rEEoiqQ/exec') {
+      if (!RSVP_ENDPOINT || RSVP_ENDPOINT.includes('YOUR_GOOGLE')) {
         errorEl.innerHTML =
           'The RSVP system is not yet configured by the site administrator. '
           + 'Please reach out to the family directly to let them know you\u2019ll be attending.';
