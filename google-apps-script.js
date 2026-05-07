@@ -107,16 +107,22 @@ function doPost(e) {
     // Check if this email already has an RSVP (update vs new)
     var emailLower = String(data.email).trim().toLowerCase();
     var isUpdate = false;
-    var sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
-    if (sheet && sheet.getLastRow() > 1) {
-      var emails = sheet.getRange(2, 3, sheet.getLastRow() - 1, 1).getValues();
-      for (var i = 0; i < emails.length; i++) {
-        if (String(emails[i][0]).toLowerCase().trim() === emailLower) {
-          isUpdate = true;
-          break;
+    try {
+      var files = DriveApp.getFilesByName(SPREADSHEET_NAME);
+      if (files.hasNext()) {
+        var ss = SpreadsheetApp.open(files.next());
+        var checkSheet = ss.getSheetByName(SHEET_NAME);
+        if (checkSheet && checkSheet.getLastRow() > 1) {
+          var emails = checkSheet.getRange(2, 3, checkSheet.getLastRow() - 1, 1).getValues();
+          for (var i = 0; i < emails.length; i++) {
+            if (String(emails[i][0]).toLowerCase().trim() === emailLower) {
+              isUpdate = true;
+              break;
+            }
+          }
         }
       }
-    }
+    } catch(e) { /* Sheet doesn't exist yet — treat as new */ }
 
     // Only rate-limit NEW submissions (not updates)
     if (!isUpdate && isRateLimited_(emailLower)) {
