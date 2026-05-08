@@ -289,14 +289,8 @@
       font-size: clamp(1.1rem,1.9vw,1.25rem);
       color: var(--text-2); line-height: 1.55;
     }
-    .event-row.no-bullet::before { display: none; }
-    .event-row::before { display: none; } .event-row-DEAD::before {
-      content: '';
-      display: block;
-      width: 4px; min-width: 4px; height: 4px; border-radius: 50%;
-      background: var(--gold); opacity: .38;
-      margin-top: 9px; flex-shrink: 0;
-    }
+    
+    .event-row::before { display: none; }
     .event-row a {
       color: inherit; text-decoration: underline;
       text-decoration-color: rgba(196,169,122,.24);
@@ -451,13 +445,12 @@
       color: var(--gold); cursor: pointer; overflow: hidden;
       transition: color .3s;
     }
-    .btn-submit::after {
-      content: ''; position: absolute; inset: 0;
-      background: var(--gold);
-      transform: translateX(-102%); transition: transform .36s var(--ease);
+    
+    .btn-submit:hover {
+      opacity: .82;
+      border-color: var(--gold-lt);
     }
-    .btn-submit:hover::after, .btn-submit:focus::after { transform: translateX(0); }
-    .btn-submit:hover, .btn-submit:focus { color: var(--ink); outline: none; }
+    .btn-submit:hover, .btn-submit:focus { outline: none; }
     .btn-submit:disabled { opacity: .42; cursor: not-allowed; pointer-events: none; }
     .btn-submit-label { position: relative; z-index: 1; }
 
