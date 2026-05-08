@@ -193,6 +193,21 @@
       margin-bottom: 36px;
     }
 
+    /* ── SECTION DATE SUBTITLE ─────────────────────────────────────── */
+    /* A date or subtitle sitting directly beneath a section heading.   */
+    /* Tight margin-top keeps it bonded to the heading above; generous  */
+    /* margin-bottom creates clear separation before content below.     */
+    .section-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+      letter-spacing: .07em;
+      color: var(--text-2);
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 48px;
+    }
+
     /* ── ORNAMENT RULE ──────────────────────────── */
     .ornament {
       display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 40px;
@@ -667,8 +682,8 @@
   <main>
     <div class="wrap">
       <div class="label fa">Services</div>
-      <h2 class="heading fa">Celebration of Life</h2>
-      <p class="tribute-body fa" style="text-align:center; margin-bottom:32px; font-size:clamp(1.1rem,1.8vw,1.25rem); color:var(--text-2);">Thursday, June 12, 2026</p>
+      <h2 class="heading fa" style="margin-bottom:8px;">Celebration of Life</h2>
+      <p class="section-date fa">Thursday, June 12, 2026</p>
 
 
         <!-- I. Military Honors Ceremony -->
