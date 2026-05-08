@@ -1037,7 +1037,6 @@
         _autoTimer = setInterval(() => fetchData(true), 30_000);
       });
       document.getElementById('retryBtn' ).addEventListener('click', () => fetchData());
-      document.getElementById('exportBtn').addEventListener('click', exportCSV);
 
       // Table header sort
       document.querySelectorAll('#guestTable thead th').forEach(th => {
