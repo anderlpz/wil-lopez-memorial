@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- v12 -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -497,7 +497,7 @@
       -webkit-overflow-scrolling: touch;
     }
     table {
-      width: 100%; min-width: 760px;
+      width: 100%; min-width: 640px;
       border-collapse: collapse;
     }
 
@@ -556,7 +556,7 @@
     
       font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
 
-    .td-name { color: var(--text); font-weight: 400; white-space: nowrap; }
+    .td-name { color: var(--text); font-weight: 400; }
 
     .td-email a {
       color: var(--text-2);
@@ -568,14 +568,28 @@
     }
     .td-email a:hover { color: var(--gold); text-decoration-color: var(--gold); }
 
+    /* Email shown small beneath the name in the Name column */
+    .name-email-sub {
+      display: block;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 11px; font-weight: 400;
+      color: var(--text-3); letter-spacing: .01em;
+      margin-top: 3px;
+      text-decoration: none;
+      transition: color .15s;
+      word-break: break-all;
+    }
+    .name-email-sub:hover { color: var(--gold); }
+
     .td-guests {
-      font-family: 'Jost', sans-serif;
-      font-weight: 300; font-size: clamp(1.1rem,1.8vw,1.25rem); letter-spacing: .04em;
-      text-align: center;
+      font-family: 'IBM Plex Sans', 'Jost', sans-serif;
+      font-weight: 300; font-size: clamp(1.6rem,2.8vw,2.2rem); letter-spacing: .02em;
+      color: var(--gold-lt);
+      text-align: center; vertical-align: middle;
     }
 
     /* Event pills */
-    .td-events .pill-wrap { display: flex; flex-wrap: wrap; gap: 5px; min-width: 200px; }
+    .td-events .pill-wrap { display: flex; flex-wrap: wrap; gap: 4px; }
     .pill {
       display: inline-flex; align-items: center;
       padding: 2px 8px;
@@ -589,16 +603,12 @@
       font-family: 'IBM Plex Sans', 'Jost', sans-serif;}
 
     .td-message {
-      max-width: 250px;
       font-style: italic;
-      font-size: clamp(1.05rem,1.7vw,1.2rem) !important;
+      font-size: clamp(1.05rem,1.7vw,1.18rem) !important;
+      min-width: 180px;
     }
     .msg-text {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      line-height: 1.55;
+      line-height: 1.62;
     }
 
     .td-timestamp {
@@ -913,21 +923,20 @@
                 <th data-col="name"      tabindex="0" aria-sort="ascending" class="sorted">
                   Name <span class="sort-arrow" aria-hidden="true">&#9650;</span>
                 </th>
-                <th data-col="email"     tabindex="0" aria-sort="none">
-                  Email <span class="sort-arrow" aria-hidden="true">&#9650;</span>
-                </th>
                 <th data-col="guests"    tabindex="0" aria-sort="none"
-                    style="text-align:center;width:66px;">
+                    style="text-align:center;width:58px;">
                   # <span class="sort-arrow" aria-hidden="true">&#9650;</span>
-                </th>
-                <th data-col="events"    tabindex="0" aria-sort="none">
-                  Events <span class="sort-arrow" aria-hidden="true">&#9650;</span>
                 </th>
                 <th data-col="message"   tabindex="0" aria-sort="none">
                   Message <span class="sort-arrow" aria-hidden="true">&#9650;</span>
                 </th>
-                <th data-col="timestamp" tabindex="0" aria-sort="none">
-                  Submitted <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                <th data-col="events"    tabindex="0" aria-sort="none"
+                    style="width:130px;">
+                  Events <span class="sort-arrow" aria-hidden="true">&#9650;</span>
+                </th>
+                <th data-col="timestamp" tabindex="0" aria-sort="none"
+                    style="width:68px;">
+                  Date <span class="sort-arrow" aria-hidden="true">&#9650;</span>
                 </th>
                 <th class="th-actions" aria-label="Actions">
                   Actions
@@ -1187,7 +1196,7 @@
 
       if (!sorted.length) {
         tbody.innerHTML =
-          '<tr class="no-data-row"><td colspan="7">No RSVPs have been received yet.</td></tr>';
+          '<tr class="no-data-row"><td colspan="6">No RSVPs have been received yet.</td></tr>';
         updateSheetsNote(0);
         return;
       }
@@ -1207,28 +1216,41 @@
 
         // Timestamp: prefer submitted_pt (already human-readable PT), fall back
         const rawTs  = r.submitted_pt || r.submitted_at || r.timestamp;
-        const ts     = rawTs ? fmtTs(rawTs) : '\u2014';
         const hasMsg = r.message && r.message.trim().length > 0;
 
+        // Short date — "May 7" — for the compact Date column
+        const shortTs = (function(t) {
+          if (!t) return '\u2014';
+          try {
+            let iso = t;
+            if (typeof t === 'string' && t.trim().endsWith(' PT')) {
+              iso = t.trim().slice(0, -3).trim().replace(' ', 'T');
+            }
+            const d = new Date(iso);
+            if (!isNaN(d.getTime())) {
+              return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            }
+          } catch (_) {}
+          return t;
+        })(rawTs);
+
         return `<tr class="rsvp-row${isDeleted ? ' row-deleted' : ''}" data-email="${esc(emailKey)}">
-          <td class="td-name">${esc(r.name || '\u2014')}</td>
-          <td class="td-email">
-            <a href="mailto:${esc(r.email || '')}" target="_blank" rel="noopener noreferrer">
-              ${esc(r.email || '\u2014')}
-            </a>
+          <td class="td-name">
+            ${esc(r.name || '\u2014')}
+            ${r.email ? `<a href="mailto:${esc(r.email)}" class="name-email-sub">${esc(r.email)}</a>` : ''}
           </td>
           <td class="td-guests">${r.guests != null ? esc(String(r.guests)) : '\u2014'}</td>
+          <td class="td-message">
+            ${hasMsg
+              ? `<div class="msg-text">${esc(r.message)}</div>`
+              : `<span style="font-style:italic;opacity:.3;">\u2014</span>`}
+          </td>
           <td class="td-events">
             <div class="pill-wrap">
               ${pills || '<span style="font-style:italic;font-family:\'Cormorant Garamond\',serif;opacity:.3;">\u2014</span>'}
             </div>
           </td>
-          <td class="td-message">
-            ${hasMsg
-              ? `<div class="msg-text" title="${esc(r.message)}">${esc(r.message)}</div>`
-              : `<span style="font-style:italic;opacity:.3;">\u2014</span>`}
-          </td>
-          <td class="td-timestamp">${ts}</td>
+          <td class="td-timestamp">${shortTs}</td>
           <td class="td-actions">
             ${isDeleted
               ? `<span style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;
