@@ -117,7 +117,7 @@
     /* Frosted glass name panel */
     .hero__panel {
       position: relative; z-index: 10;
-      padding: clamp(36px,5.5vw,68px) clamp(20px,5vw,60px) clamp(44px,6.5vw,76px);
+      padding: clamp(36px,5.5vw,56px) clamp(20px,5vw,60px);
       backdrop-filter: blur(22px) saturate(145%);
       -webkit-backdrop-filter: blur(22px) saturate(145%);
       background: rgba(12,9,7,.32);
@@ -132,7 +132,7 @@
 
     .hero__name {
       font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: clamp(2.3rem,5.8vw,4.6rem);
+      font-size: clamp(2.3rem,5.8vw,4.6rem); white-space: nowrap;
       letter-spacing: clamp(.1em,1.4vw,.2em);
       text-transform: uppercase;
       color: var(--text); line-height: 1.05;
@@ -598,7 +598,10 @@
         justify-content: center;
         align-items: center;
       }
-      .scroll-hint { display: block; text-align: center; }
+      
+      /* Keep WILBUM LOPEZ on one line in 50vw panel */
+      .hero__name { font-size: clamp(2rem, 4.5vw, 3.2rem); }
+.scroll-hint { display: block; text-align: center; }
 
       /* Force .wrap to full width inside flex sections */
       .right-panel > section .wrap,
@@ -683,7 +686,7 @@
     <div class="wrap">
       <div class="label fa">Services</div>
       <h2 class="heading fa" style="margin-bottom:8px;">Celebration of Life</h2>
-      <p class="section-date fa">Thursday, June 12, 2026</p>
+      <p class="section-date fa">Friday, June 12, 2026</p>
 
 
         <!-- I. Military Honors Ceremony -->
@@ -955,11 +958,11 @@
        PST = UTC-8:   10:00 AM PST = '...T180000Z'
 
        Example:
-         June 14, 2026
+         June 12, 2026
          Ceremony  10:00 AM – 11:30 AM PDT:
-           start: '20260614T170000Z',  end: '20260614T183000Z'
+           start: '20260612T170000Z',  end: '20260612T183000Z'
          Service   2:00 PM – 4:00 PM PDT:
-           start: '20260614T210000Z',  end: '20260614T230000Z'
+           start: '20260612T210000Z',  end: '20260612T230000Z'
     ═══════════════════════════════════════════════════════ */
     var CAL = {
       ceremony: {
