@@ -290,7 +290,7 @@
       color: var(--text-2); line-height: 1.55;
     }
     .event-row.no-bullet::before { display: none; }
-    .event-row::before {
+    .event-row::before { display: none; } .event-row-DEAD::before {
       content: '';
       display: block;
       width: 4px; min-width: 4px; height: 4px; border-radius: 50%;
@@ -726,12 +726,7 @@
                 <span class="event-schedule-time">12:50 PM</span>
                 <span class="event-schedule-label">Celebration of Life Service</span>
               </li>
-              <li class="event-schedule-item">
-                <span class="event-schedule-time">~2:00 PM</span>
-                <span class="event-schedule-label">Dismissal</span>
-              </li>
             </ol>
-            <p class="event-motorcade">Motorcade from Riverside National Cemetery arrives ~12:00 PM</p>
 
             <div class="event-row no-bullet">
               <span>
