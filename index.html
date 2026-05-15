@@ -565,20 +565,20 @@
     .scroll-hint { display: none; }
 
     /* RSVP CTA -- show mobile version by default, desktop hidden */
-    .rsvp-cta { display: inline-block; text-decoration: none; padding: 14px 36px; border: 1px solid rgba(196,169,122,.20); border-radius: 4px; background: rgba(255,251,245,.04); transition: background .3s ease, border-color .3s ease; }
-    .rsvp-cta:hover { background: rgba(255,251,245,.065); border-color: rgba(196,169,122,.35); }
-    .rsvp-cta__label { font-family: 'Jost', sans-serif; font-size: .85rem; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: #c4a97a; display: block; }
-    .rsvp-cta__note { display: block; margin-top: 4px; font-family: 'Cormorant Garamond', serif; font-size: .8rem; color: #6a6360; letter-spacing: .05em; }
-    .rsvp-cta--mobile { display: inline-block; }
+    .rsvp-cta { display: inline-block; text-decoration: none; padding: 16px 44px; border: 1px solid rgba(196,169,122,.25); border-radius: 4px; background: rgba(20,18,16,.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: background .3s ease, border-color .3s ease; text-align: center; }
+    .rsvp-cta:hover { background: rgba(20,18,16,.55); border-color: rgba(196,169,122,.4); }
+    .rsvp-cta__label { font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; color: #c4a97a; display: block; }
+    .rsvp-cta__note { display: block; margin-top: 5px; font-family: 'Cormorant Garamond', serif; font-size: .78rem; color: #6a6360; letter-spacing: .05em; }
+    .rsvp-cta--mobile { display: block; position: relative; z-index: 10; margin: 0 auto; margin-top: -10px; width: fit-content; }
     .rsvp-cta--desktop { display: none; }
     .left-panel, .right-panel { width: 100%; }
 
     /* RSVP CTA -- show mobile version by default, desktop hidden */
-    .rsvp-cta { display: inline-block; text-decoration: none; padding: 14px 36px; border: 1px solid rgba(196,169,122,.20); border-radius: 4px; background: rgba(255,251,245,.04); transition: background .3s ease, border-color .3s ease; }
-    .rsvp-cta:hover { background: rgba(255,251,245,.065); border-color: rgba(196,169,122,.35); }
-    .rsvp-cta__label { font-family: 'Jost', sans-serif; font-size: .85rem; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: #c4a97a; display: block; }
-    .rsvp-cta__note { display: block; margin-top: 4px; font-family: 'Cormorant Garamond', serif; font-size: .8rem; color: #6a6360; letter-spacing: .05em; }
-    .rsvp-cta--mobile { display: inline-block; }
+    .rsvp-cta { display: inline-block; text-decoration: none; padding: 16px 44px; border: 1px solid rgba(196,169,122,.25); border-radius: 4px; background: rgba(20,18,16,.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: background .3s ease, border-color .3s ease; text-align: center; }
+    .rsvp-cta:hover { background: rgba(20,18,16,.55); border-color: rgba(196,169,122,.4); }
+    .rsvp-cta__label { font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 400; letter-spacing: 5px; text-transform: uppercase; color: #c4a97a; display: block; }
+    .rsvp-cta__note { display: block; margin-top: 5px; font-family: 'Cormorant Garamond', serif; font-size: .78rem; color: #6a6360; letter-spacing: .05em; }
+    .rsvp-cta--mobile { display: block; position: relative; z-index: 10; margin: 0 auto; margin-top: -10px; width: fit-content; }
     .rsvp-cta--desktop { display: none; }
 
     /* Desktop: sticky photo on the left, scrollable content on the right */
@@ -670,11 +670,11 @@
       <p class="hero__dates">
         December 31, 1949 &mdash; April 27, 2026
       </p>
-      <a href="#rsvp" class="rsvp-cta rsvp-cta--mobile" style="margin-top:24px;">
-        <span class="rsvp-cta__label">RSVP</span>
-        <span class="rsvp-cta__note">Helps us plan refreshments</span>
-      </a>
     </div>
+    <a href="#rsvp" class="rsvp-cta rsvp-cta--mobile">
+      <span class="rsvp-cta__label">RSVP</span>
+      <span class="rsvp-cta__note">Helps us plan refreshments</span>
+    </a>
   </header>
 
   <!-- RIGHT PANEL: tribute, events, RSVP, footer — scrolls normally on desktop -->
