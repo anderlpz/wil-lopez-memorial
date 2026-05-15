@@ -563,10 +563,28 @@
     /* Mobile (default): stacked full-width — identical to current layout */
     .split-layout { display: block; }
     .scroll-hint { display: none; }
+
+    /* RSVP CTA -- show mobile version by default, desktop hidden */
+    .rsvp-cta { display: inline-block; text-decoration: none; padding: 14px 36px; border: 1px solid rgba(196,169,122,.20); border-radius: 4px; background: rgba(255,251,245,.04); transition: background .3s ease, border-color .3s ease; }
+    .rsvp-cta:hover { background: rgba(255,251,245,.065); border-color: rgba(196,169,122,.35); }
+    .rsvp-cta__label { font-family: 'Jost', sans-serif; font-size: .85rem; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: #c4a97a; display: block; }
+    .rsvp-cta__note { display: block; margin-top: 4px; font-family: 'Cormorant Garamond', serif; font-size: .8rem; color: #6a6360; letter-spacing: .05em; }
+    .rsvp-cta--mobile { display: inline-block; }
+    .rsvp-cta--desktop { display: none; }
     .left-panel, .right-panel { width: 100%; }
+
+    /* RSVP CTA -- show mobile version by default, desktop hidden */
+    .rsvp-cta { display: inline-block; text-decoration: none; padding: 14px 36px; border: 1px solid rgba(196,169,122,.20); border-radius: 4px; background: rgba(255,251,245,.04); transition: background .3s ease, border-color .3s ease; }
+    .rsvp-cta:hover { background: rgba(255,251,245,.065); border-color: rgba(196,169,122,.35); }
+    .rsvp-cta__label { font-family: 'Jost', sans-serif; font-size: .85rem; font-weight: 400; letter-spacing: 4px; text-transform: uppercase; color: #c4a97a; display: block; }
+    .rsvp-cta__note { display: block; margin-top: 4px; font-family: 'Cormorant Garamond', serif; font-size: .8rem; color: #6a6360; letter-spacing: .05em; }
+    .rsvp-cta--mobile { display: inline-block; }
+    .rsvp-cta--desktop { display: none; }
 
     /* Desktop: sticky photo on the left, scrollable content on the right */
     @media (min-width: 900px) {
+      .rsvp-cta--mobile { display: none; }
+      .rsvp-cta--desktop { display: inline-block; }
       .split-layout {
         display: flex;
         align-items: flex-start;
@@ -652,6 +670,10 @@
       <p class="hero__dates">
         December 31, 1949 &mdash; April 27, 2026
       </p>
+      <a href="#rsvp" class="rsvp-cta rsvp-cta--mobile" style="margin-top:24px;">
+        <span class="rsvp-cta__label">RSVP</span>
+        <span class="rsvp-cta__note">Helps us plan refreshments</span>
+      </a>
     </div>
   </header>
 
@@ -677,10 +699,10 @@
       </p>
 
     
-      <div class="scroll-hint fa" aria-hidden="true" style="margin-top:40px;">
-        <span style="font-family:'Jost',sans-serif; font-size:.9rem; letter-spacing:.15em; text-transform:uppercase; color:var(--text-3);">Scroll for details</span>
-        <span style="display:block; margin-top:8px; font-size:1.2rem; color:var(--gold); opacity:.5; animation: bobDown 2s ease-in-out infinite;">&#8595;</span>
-      </div>
+      <a href="#rsvp" class="rsvp-cta rsvp-cta--desktop fa" style="margin-top:32px;">
+        <span class="rsvp-cta__label">RSVP</span>
+        <span class="rsvp-cta__note">Helps us plan refreshments</span>
+      </a>
 
     </div>
   </section>
@@ -776,7 +798,8 @@
 
       <p class="tribute-body fa" style="text-align:left; max-width:100%; margin-bottom:34px; font-size:clamp(1.15rem,2vw,1.35rem);">
         Your presence is a gift to our family. Please let us know you&rsquo;ll be joining us
-        so we can plan accordingly.
+        so we can prepare refreshments and seating. This is simply to help us plan &mdash;
+        not a binding commitment.
       </p>
 
       <div class="glass rsvp-glass fa">
